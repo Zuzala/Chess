@@ -1,3 +1,5 @@
+package Pieces;
+
 /*
 Author: Andy Malinsky
 
@@ -5,7 +7,7 @@ Author: Andy Malinsky
 
 import java.util.*;
 import java.awt.*;
-
+import main.ChessGUI2;
 
 
 

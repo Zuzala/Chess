@@ -1,3 +1,4 @@
+package main;
 //Author: Andy Malinsky
 
 //import libraries
@@ -5,9 +6,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.net.URL;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.util.*;
+import Pieces.*;
 
 //main GUI class
 public class ChessGUI2 extends JFrame
@@ -70,62 +73,62 @@ public class ChessGUI2 extends JFrame
          if(x == 0 || x == 7)  //Black Rook
 			{
 				squares[x].setIcon(piece.getBlackPiece(3));
-            pieces[x] = piece.getBlackPiece(3).toString() + "F";
+            pieces[x] = piece.getPieceGif(3) + "F";
          }
 			else if(x == 1 || x == 6)  //Black Knight
 			{
 				squares[x].setIcon(piece.getBlackPiece(1));
-            pieces[x] = piece.getBlackPiece(1).toString();
+            pieces[x] = piece.getPieceGif(1);
 			}
 			else if(x == 2 || x == 5)  //Black Bishop
 			{
 				squares[x].setIcon(piece.getBlackPiece(2));
-            pieces[x] = piece.getBlackPiece(2).toString();
+            pieces[x] = piece.getPieceGif(2);
 			}
 			else if(x == 3)  //Black Queen
 			{
 				squares[x].setIcon(piece.getBlackPiece(4));
-            pieces[x] = piece.getBlackPiece(4).toString();
+            pieces[x] = piece.getPieceGif(4);
 			}
 			else if(x == 4)  //Black King
 			{
 				squares[x].setIcon(piece.getBlackPiece(5));
-            pieces[x] = piece.getBlackPiece(5).toString() + "F";
+            pieces[x] = piece.getPieceGif(5) + "F";
 			}
 			else if(x >= 8 && x <= 15)  //Black Pawn
 			{
 				squares[x].setIcon(piece.getBlackPiece(0));
-            pieces[x] = piece.getBlackPiece(0).toString() + "F";
+            pieces[x] = piece.getPieceGif(0) + "F";
 			}
 			else if(x >= 48 && x <= 55)  //White Pawn
 			{
 				squares[x].setIcon(piece.getWhitePiece(0));
-            pieces[x] = piece.getWhitePiece(0).toString() + "F";
+            pieces[x] = piece.getPieceGif(6) + "F";
 			}
 			else if(x == 56 || x == 63)  //White Rook
 			{
 				squares[x].setIcon(piece.getWhitePiece(3));
-            pieces[x] = piece.getWhitePiece(3).toString() + "F";
+            pieces[x] = piece.getPieceGif(9) + "F";
 			}
 			else if(x == 57 || x == 62)  //White Knight
 			{
 				squares[x].setIcon(piece.getWhitePiece(1));
-            pieces[x] = piece.getWhitePiece(1).toString();
+            pieces[x] = piece.getPieceGif(7);
 			}
 			else if(x == 58 || x == 61)  //White Bishop
 			{
 				squares[x].setIcon(piece.getWhitePiece(2));
-            pieces[x] = piece.getWhitePiece(2).toString();
+            pieces[x] = piece.getPieceGif(8);
 			}
 			else if(x == 59)  //White Queen
 			{
 				squares[x].setIcon(piece.getWhitePiece(4));
-            pieces[x] = piece.getWhitePiece(4).toString();
+            pieces[x] = piece.getPieceGif(10);
 			}
 			else if(x == 60)  //White King
 			{
 				squares[x].setIcon(piece.getWhitePiece(5));
-            pieces[x] = piece.getWhitePiece(5).toString() + "F";
+            pieces[x] = piece.getPieceGif(11) + "F";
 			}
          
          //sets the standard colors of squares on board
@@ -1020,7 +1023,7 @@ public class ChessGUI2 extends JFrame
       BufferedImage img = null;
       try
       {
-         img = ImageIO.read(new File("flipImg.png"));
+          img = ImageIO.read(getClass().getResource("/Images/flipImg.png"));
       }
       catch(IOException e)
       {

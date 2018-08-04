@@ -1,10 +1,11 @@
+package main;
 /*
 Author: Andy Malinsky
 Date: 5/10/17
 Purpose: Chess Game. 2 Player local multiplayer.
 */
 
-
+import java.net.URISyntaxException;
 
 public class ChessMain2
 {
