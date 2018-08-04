@@ -34,7 +34,7 @@ public class King
 
       int caseCounterK = 0;
 
-      if(g.orientation == 'w')
+      if(g.orientation == 'w' || g.orientation == 'b')
       {
          if(g.whiteTurn)
          {
@@ -42,7 +42,7 @@ public class King
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 60)
+                        if(p == 60 && g.orientation == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -53,11 +53,30 @@ public class King
                                  int posPosition = p + 2;
                                  g.possibleMoves.add(posPosition);
                                  g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
-                                 System.out.println(g.pieces[p+3]);
                               }
                               if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3] == " " && g.pieces[p-4].equals("WR.gifF"))
                               {
                                  int posPosition = p - 2;
+                                 g.possibleMoves.add(posPosition);
+                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                              }
+                           }
+                        }
+                        if(p == 3 && g.orientation == 'b')
+                        {
+                           for(int c = 0; c < movePString.length(); c++)
+                           {
+                              char h = movePString.charAt(c);
+                           
+                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3].equals("WR.gifF"))
+                              {
+                                 int posPosition = p - 2;
+                                 g.possibleMoves.add(posPosition);
+                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                              }
+                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3] == " " && g.pieces[p+4].equals("WR.gifF"))
+                              {
+                                 int posPosition = p + 2;
                                  g.possibleMoves.add(posPosition);
                                  g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
@@ -270,7 +289,7 @@ public class King
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 4)
+                        if(p == 4 && g.orientation == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -281,11 +300,30 @@ public class King
                                  int posPosition = p + 2;
                                  g.possibleMoves.add(posPosition);
                                  g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
-                                 System.out.println(g.pieces[p+3]);
                               }
                               if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3] == " " && g.pieces[p-4].equals("BR.gifF"))
                               {
                                  int posPosition = p - 2;
+                                 g.possibleMoves.add(posPosition);
+                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                              }
+                           }
+                        }
+                        if(p == 59 && g.orientation == 'b')
+                        {
+                           for(int c = 0; c < movePString.length(); c++)
+                           {
+                              char h = movePString.charAt(c);
+                           
+                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3].equals("BR.gifF"))
+                              {
+                                 int posPosition = p - 2;
+                                 g.possibleMoves.add(posPosition);
+                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                              }
+                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3] == " " && g.pieces[p+4].equals("BR.gifF"))
+                              {
+                                 int posPosition = p + 2;
                                  g.possibleMoves.add(posPosition);
                                  g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }

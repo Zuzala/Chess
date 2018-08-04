@@ -32,7 +32,7 @@ public class Rook
       int caseCounterR = 0;
       boolean continueLine = true;
       
-      if(g.orientation == 'w')
+      if(g.orientation == 'w' || g.orientation == 'b')
       {
          if(g.whiteTurn)
          {

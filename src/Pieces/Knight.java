@@ -32,7 +32,7 @@ public class Knight
    { 
       int caseCounterN = 0;
       
-      if((g.orientation == 'w') || (g.orientation == 'b'))
+      if(g.orientation == 'w' || g.orientation == 'b')
       {
          while(caseCounterN < 25)
          {  

@@ -287,7 +287,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder pawnUpdate = new StringBuilder(movePieceString);
                                  pawnUpdate.deleteCharAt(c);
                                  movePieceString = pawnUpdate.toString();
-                                 System.out.println(movePieceString); 
                               }
                            }
                            
@@ -335,7 +334,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder rookUpdate = new StringBuilder(movePieceString);
                                  rookUpdate.deleteCharAt(c);
                                  movePieceString = rookUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -351,7 +349,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder kingUpdate = new StringBuilder(movePieceString);
                                  kingUpdate.deleteCharAt(c);
                                  movePieceString = kingUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -389,18 +386,18 @@ public class ChessGUI2 extends JFrame
                                  pieces[56] = " ";
                               }
                               break;
-                           /*case 'b':
-                              if(position == 62 && highlightedPiecePostion == 60)
+                           case 'b':
+                              if(position == 1 && highlightedPiecePosition == 3)
                               {
-                                 pieces[61] == "WR.gif";
-                                 pieces[63] == " ";
+                                 pieces[2] = "WR.gif";
+                                 pieces[0] = " ";
                               }
-                              if(position == 58 && highlightedPiecePostion == 60)
+                              if(position == 5 && highlightedPiecePosition == 3)
                               {
-                                 pieces[59] == "WR.gif";
-                                 pieces[56] == " ";
+                                 pieces[4] = "WR.gif";
+                                 pieces[7] = " ";
                               }
-                              break;*/
+                              break;
                         }
                        
                        //sets the squares back to original color
@@ -437,7 +434,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder pawnUpdate = new StringBuilder(movePieceString);
                                  pawnUpdate.deleteCharAt(c);
                                  movePieceString = pawnUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -453,7 +449,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder rookUpdate = new StringBuilder(movePieceString);
                                  rookUpdate.deleteCharAt(c);
                                  movePieceString = rookUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -469,7 +464,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder kingUpdate = new StringBuilder(movePieceString);
                                  kingUpdate.deleteCharAt(c);
                                  movePieceString = kingUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -563,7 +557,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder pawnUpdate = new StringBuilder(movePieceString);
                                  pawnUpdate.deleteCharAt(c);
                                  movePieceString = pawnUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                            
@@ -607,7 +600,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder rookUpdate = new StringBuilder(movePieceString);
                                  rookUpdate.deleteCharAt(c);
                                  movePieceString = rookUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -623,7 +615,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder kingUpdate = new StringBuilder(movePieceString);
                                  kingUpdate.deleteCharAt(c);
                                  movePieceString = kingUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -646,18 +637,18 @@ public class ChessGUI2 extends JFrame
                                  pieces[0] = " ";
                               }
                               break;
-                           /*case 'b':
-                              if(position == 62 && highlightedPiecePostion == 60)
+                           case 'b':
+                              if(position == 57 && highlightedPiecePosition == 59)
                               {
-                                 pieces[61] == "WR.gif";
-                                 pieces[63] == " ";
+                                 pieces[58] = "BR.gif";
+                                 pieces[56] = " ";
                               }
-                              if(position == 58 && highlightedPiecePostion == 60)
+                              if(position == 61 && highlightedPiecePosition == 59)
                               {
-                                 pieces[59] == "WR.gif";
-                                 pieces[56] == " ";
+                                 pieces[60] = "BR.gif";
+                                 pieces[63] = " ";
                               }
-                              break;*/
+                              break;
                         }
                         
                         for(int hi = 0; hi < possibleMoves.size(); hi++)
@@ -692,7 +683,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder pawnUpdate = new StringBuilder(movePieceString);
                                  pawnUpdate.deleteCharAt(c);
                                  movePieceString = pawnUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -708,7 +698,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder rookUpdate = new StringBuilder(movePieceString);
                                  rookUpdate.deleteCharAt(c);
                                  movePieceString = rookUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -724,7 +713,6 @@ public class ChessGUI2 extends JFrame
                                  StringBuilder kingUpdate = new StringBuilder(movePieceString);
                                  kingUpdate.deleteCharAt(c);
                                  movePieceString = kingUpdate.toString();
-                                 System.out.println(movePieceString);
                               }
                            }
                         }
@@ -761,8 +749,10 @@ public class ChessGUI2 extends JFrame
    }
    
    //method for highlighting possible moves on board
-   public int[] squaresAFile = {0, 8, 16, 24, 32, 40, 48, 56};
-   public int[] squaresHFile = {7, 15, 23, 31, 39, 47, 55, 63};
+   public int[] squaresAFileW = {0, 8, 16, 24, 32, 40, 48, 56};
+   public int[] squaresHFileW = {7, 15, 23, 31, 39, 47, 55, 63};
+   public int[] squaresAFileB = {7, 15, 23, 31, 39, 47, 55, 63};
+   public int[] squaresHFileB = {0, 8, 16, 24, 32, 40, 48, 56};
    private Pawn pawn;
    private Knight knight;
    private Bishop bishop;
