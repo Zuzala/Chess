@@ -11,15 +11,12 @@ import java.util.*;
 public class Piece
 {
    
-   private boolean whiteTurn;
-   private String movePString;
    private String[] pieces = new String[64];
    
    
    public Piece(boolean whiteTurn, String movePString, String[] pieces)
    {
-      this.whiteTurn = whiteTurn;
-      this.movePString = movePString;
+
       for(int x = 0; x < pieces.length; x++)
       {
          this.pieces[x] = pieces[x];

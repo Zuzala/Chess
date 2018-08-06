@@ -15,9 +15,13 @@ import main.ChessGUI2;
 public class King
 {
    private ChessGUI2 g; 
+   private String[] pieces;
    private int p;
    private String movePString;
    private boolean whiteTurn;
+   
+   private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+   private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
    
    public King(int position, String movePString, ChessGUI2 gee) 
    {
@@ -25,6 +29,7 @@ public class King
       this.movePString = movePString;
       g = gee;
       this.whiteTurn = g.getTurn();
+      this.pieces = g.getPieces();
       
       highlightMovesK();
    }
@@ -48,17 +53,17 @@ public class King
                            {
                               char h = movePString.charAt(c);
                            
-                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3].equals("WR.gifF"))
+                              if(h == 'F' && pieces[p+1] == " " && pieces[p+2] == " " && pieces[p+3].equals("WR.gifF"))
                               {
                                  int posPosition = p + 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
-                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3] == " " && g.pieces[p-4].equals("WR.gifF"))
+                              if(h == 'F' && pieces[p-1] == " " && pieces[p-2] == " " && pieces[p-3] == " " && pieces[p-4].equals("WR.gifF"))
                               {
                                  int posPosition = p - 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
                            }
                         }
@@ -68,17 +73,17 @@ public class King
                            {
                               char h = movePString.charAt(c);
                            
-                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3].equals("WR.gifF"))
+                              if(h == 'F' && pieces[p-1] == " " && pieces[p-2] == " " && pieces[p-3].equals("WR.gifF"))
                               {
                                  int posPosition = p - 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
-                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3] == " " && g.pieces[p+4].equals("WR.gifF"))
+                              if(h == 'F' && pieces[p+1] == " " && pieces[p+2] == " " && pieces[p+3] == " " && pieces[p+4].equals("WR.gifF"))
                               {
                                  int posPosition = p + 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
                            }
                         }
@@ -101,10 +106,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            } 
                         }
@@ -123,10 +128,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }                        
                         }
@@ -145,10 +150,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -167,10 +172,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -189,10 +194,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -209,10 +214,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -229,10 +234,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -249,10 +254,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -269,10 +274,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -295,17 +300,17 @@ public class King
                            {
                               char h = movePString.charAt(c);
                            
-                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3].equals("BR.gifF"))
+                              if(h == 'F' && pieces[p+1] == " " && pieces[p+2] == " " && pieces[p+3].equals("BR.gifF"))
                               {
                                  int posPosition = p + 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
-                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3] == " " && g.pieces[p-4].equals("BR.gifF"))
+                              if(h == 'F' && pieces[p-1] == " " && pieces[p-2] == " " && pieces[p-3] == " " && pieces[p-4].equals("BR.gifF"))
                               {
                                  int posPosition = p - 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
                            }
                         }
@@ -315,17 +320,17 @@ public class King
                            {
                               char h = movePString.charAt(c);
                            
-                              if(h == 'F' && g.pieces[p-1] == " " && g.pieces[p-2] == " " && g.pieces[p-3].equals("BR.gifF"))
+                              if(h == 'F' && pieces[p-1] == " " && pieces[p-2] == " " && pieces[p-3].equals("BR.gifF"))
                               {
                                  int posPosition = p - 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
-                              if(h == 'F' && g.pieces[p+1] == " " && g.pieces[p+2] == " " && g.pieces[p+3] == " " && g.pieces[p+4].equals("BR.gifF"))
+                              if(h == 'F' && pieces[p+1] == " " && pieces[p+2] == " " && pieces[p+3] == " " && pieces[p+4].equals("BR.gifF"))
                               {
                                  int posPosition = p + 2;
-                                 g.possibleMoves.add(posPosition);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPosition]);
+                                 possibleMoves.add(posPosition);
+                                 possibleMoveSquareColors.add(g.squareColors[posPosition]);
                               }
                            }
                         }
@@ -348,10 +353,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            } 
                         }
@@ -370,10 +375,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }                        
                         }
@@ -392,10 +397,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -414,10 +419,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -436,10 +441,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -456,10 +461,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -476,10 +481,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -496,10 +501,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -516,10 +521,10 @@ public class King
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                              if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                               {
-                                 g.possibleMoves.add(posPositions[x]);
-                                 g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                                 possibleMoves.add(posPositions[x]);
+                                 possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                               }
                            }
                         }
@@ -531,6 +536,19 @@ public class King
       
 
 
+   }
+   
+   
+   
+   
+   public ArrayList<Integer> getPossibleMoves()
+   {
+	   return this.possibleMoves;
+   }
+   
+   public ArrayList<Color> getPossibleMoveSquareColors()
+   {
+	   return this.possibleMoveSquareColors;
    }
 
 

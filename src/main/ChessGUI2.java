@@ -54,8 +54,8 @@ public class ChessGUI2 extends JFrame
 	private JPanel BoardPanel;
 	private JButton[] squares = new JButton[64];
 	public Color brown = new Color(156, 93, 82);
-   public Color[] squareColors = new Color[64];
-	public String[] pieces = new String[64];
+    public Color[] squareColors = new Color[64];
+	private String[] pieces = new String[64];
 	
 	private Piece piece = new Piece();
 	
@@ -154,6 +154,7 @@ public class ChessGUI2 extends JFrame
          }
          
          squares[x].putClientProperty("board-index", x);
+         squares[x].putClientProperty("square-color", squareColors[x]);
          squares[x].addActionListener(new ButtonListener());  //adds an action listener to each square
          BoardPanel.add(squares[x]);  //add each square jbutton
 		}
@@ -171,8 +172,8 @@ public class ChessGUI2 extends JFrame
    public int passantTurn;
    public int passantTakePos;
       
-   public ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
-   public ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
+   private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+   private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
    
    private Discover discover;
    private boolean whiteKingInCheck;
@@ -750,41 +751,54 @@ public class ChessGUI2 extends JFrame
    private Rook rook;
    private Queen queen;
    private King king;
+   private boolean isPiecePinned;
    
    
    public void highlightMoves(int p, String movePString)
    {
       //clears arraylists of possible moves and their square colors
       possibleMoves.clear();
-      possibleMoveSquareColors.clear();    
-       
+      possibleMoveSquareColors.clear();  
+      discover = new Discover(this);
+      isPiecePinned = discover.isPiecePinned(p); 
+      
+      
          if(whiteTurn)
          {
             switch(movePString.charAt(1))
             {
-               case 'P':  //cases for pawn moves
-                     pawn = new Pawn(p, movePString, this);
-                  break;
-               
-               case 'N':  //cases for knight moves
-                  knight = new Knight(p, this, false);            
-                 break;
-               
-               case 'B':  //cases for bishop moves
-                     bishop = new Bishop(p, this);
-                  break;  
-               
-               case 'R':  //cases for rook moves
-                     rook = new Rook(p, this); 
-                  break;
-               
-               case 'K':  //cases for king moves              
-                     king = new King(p, movePString, this);
-                  break;
-                  
-                  case 'Q':  //cases for queen moves
-                     queen = new Queen(p, this, false); 
-                  break;
+            case 'P':
+                pawn = new Pawn(p, movePString, this);
+                possibleMoves = pawn.getPossibleMoves();
+                possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
+                break;                  
+             
+             case 'N': 
+             knight = new Knight(p, this, false);
+             possibleMoves = knight.getPossibleMoves();
+             possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
+            break;
+          case 'B':
+                bishop = new Bishop(p, this);
+                possibleMoves = bishop.getPossibleMoves();
+                possibleMoveSquareColors = bishop.getPossibleMoveSquareColors();
+             break; 
+          case 'R':
+                rook = new Rook(p, this); 
+                possibleMoves = rook.getPossibleMoves();
+                possibleMoveSquareColors = rook.getPossibleMoveSquareColors();
+             break;
+          case 'K':  //cases for king moves              
+                king = new King(p, movePString, this); 
+                possibleMoves = king.getPossibleMoves();
+                possibleMoveSquareColors = king.getPossibleMoveSquareColors();
+             break;
+             
+             case 'Q':
+                queen = new Queen(p, this, false);
+                possibleMoves = queen.getPossibleMoves();
+                possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
+             break;
                }   
             
                for(int m = 0; m < possibleMoves.size(); m++)
@@ -816,23 +830,35 @@ public class ChessGUI2 extends JFrame
                {
                   case 'P':
                      pawn = new Pawn(p, movePString, this);
+                     possibleMoves = pawn.getPossibleMoves();
+                     possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
                      break;                  
                   
                   case 'N': 
                   knight = new Knight(p, this, false);
+                  possibleMoves = knight.getPossibleMoves();
+                  possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
                  break;
                case 'B':
                      bishop = new Bishop(p, this);
+                     possibleMoves = bishop.getPossibleMoves();
+                     possibleMoveSquareColors = bishop.getPossibleMoveSquareColors();
                   break; 
                case 'R':
                      rook = new Rook(p, this); 
+                     possibleMoves = rook.getPossibleMoves();
+                     possibleMoveSquareColors = rook.getPossibleMoveSquareColors();
                   break;
                case 'K':  //cases for king moves              
                      king = new King(p, movePString, this); 
+                     possibleMoves = king.getPossibleMoves();
+                     possibleMoveSquareColors = king.getPossibleMoveSquareColors();
                   break;
                   
                   case 'Q':
                      queen = new Queen(p, this, false);
+                     possibleMoves = queen.getPossibleMoves();
+                     possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
                   break;
                 }   
             }
@@ -909,7 +935,7 @@ public class ChessGUI2 extends JFrame
         //   private Color blackKingSquareColor;
         //   private int whiteKingPosition;
         //   private int blackKingPosition;
-//            discover = new Discover(this);
+//            
 //            discover.isKingInCheck();
             
 //            if(blackKingInCheck)
@@ -1503,6 +1529,14 @@ public class ChessGUI2 extends JFrame
    }
 
 
-
+   public String[] getPieces()
+   {
+	   return pieces;
+   }
+   
+   public Color getSquareColor(int index)
+   {
+	   return squareColors[index];
+   }
 
 }

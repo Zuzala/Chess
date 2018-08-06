@@ -15,10 +15,15 @@ import main.ChessGUI2;
 public class Knight
 {
    private ChessGUI2 g; 
+   private String[] pieces;
    private int p;
    private boolean whiteTurn;
    private boolean checkingForCheck;
    private boolean kingInCheck;
+   
+   private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+   private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
+   
    
    public Knight(int position, ChessGUI2 gee, boolean checkingForCheck) 
    {
@@ -26,6 +31,7 @@ public class Knight
       g = gee;
       this.checkingForCheck = checkingForCheck;
       this.whiteTurn = g.getTurn();
+      this.pieces = g.getPieces();
       
       highlightMovesN();
    }
@@ -55,18 +61,18 @@ public class Knight
                   {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                   }
@@ -87,18 +93,18 @@ public class Knight
                   {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                   } 
@@ -119,18 +125,18 @@ public class Knight
                   {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                   }
@@ -153,18 +159,18 @@ public class Knight
                   {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                   }
@@ -187,18 +193,18 @@ public class Knight
                   {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           
                   }
@@ -217,18 +223,18 @@ public class Knight
                    {
                       if(whiteTurn)
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                       else
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                    }
@@ -247,18 +253,18 @@ public class Knight
                    {
                       if(whiteTurn)
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                       else
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                    } 
@@ -277,18 +283,18 @@ public class Knight
                    {
                       if(whiteTurn)
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                       else
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                    }
@@ -307,18 +313,18 @@ public class Knight
                    {
                       if(whiteTurn)
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                       else
                       {
-                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                         if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                          {
-                            g.possibleMoves.add(posPositions[x]);
-                            g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                            possibleMoves.add(posPositions[x]);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                          }
                       }
                    }
@@ -338,18 +344,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -368,18 +374,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -399,18 +405,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -430,18 +436,18 @@ public class Knight
                            {
                      if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -461,18 +467,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -492,18 +498,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -522,18 +528,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -553,18 +559,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -585,18 +591,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -617,18 +623,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -648,18 +654,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -679,18 +685,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -710,18 +716,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -742,18 +748,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }                           }
                         }
@@ -775,18 +781,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -809,18 +815,18 @@ public class Knight
                            {
                               if(whiteTurn)
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'B')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                      else
                      {
-                        if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'W')
+                        if(pieces[posPositions[x]] == " " || pieces[posPositions[x]].charAt(0) == 'W')
                         {
-                           g.possibleMoves.add(posPositions[x]);
-                           g.possibleMoveSquareColors.add(g.squareColors[posPositions[x]]);
+                           possibleMoves.add(posPositions[x]);
+                           possibleMoveSquareColors.add(g.getSquareColor(posPositions[x]));
                         }
                      }
                            }
@@ -830,6 +836,19 @@ public class Knight
                   }                                     
          
       
+   }
+   
+   
+   
+   
+   public ArrayList<Integer> getPossibleMoves()
+   {
+	   return this.possibleMoves;
+   }
+   
+   public ArrayList<Color> getPossibleMoveSquareColors()
+   {
+	   return this.possibleMoveSquareColors;
    }
 
 

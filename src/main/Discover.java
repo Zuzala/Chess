@@ -12,6 +12,8 @@ import Pieces.Queen;
 public class Discover
 {
    private ChessGUI2 g;
+   private String[] pieces;
+   
    
    private Knight nwKing;
    private Knight nbKing;
@@ -26,6 +28,7 @@ public class Discover
    private boolean whiteKingInCheck = false;
    private boolean blackKingInCheck = false;
    private boolean ownKingDiscovered = false;
+   private boolean piecePinned = false;
    
    public Discover(ChessGUI2 gee)
    {
@@ -34,7 +37,7 @@ public class Discover
       whiteKingPosition = g.getKingPosition('w');
       blackKingPosition = g.getKingPosition('b');
       whiteTurn = g.getTurn();
-      
+      pieces = g.getPieces();
    }
 
   
@@ -50,15 +53,6 @@ public class Discover
 	   qbKing = new Queen(whiteKingPosition, g, checkingForCheck);
 	   
 	   
-	   if(whiteTurn && whiteKingInCheck)
-	   {
-		   ownKingDiscovered = true;
-	   }
-	   
-	   if(!whiteTurn && blackKingInCheck)
-	   {
-		   ownKingDiscovered = true;
-	   }
 	   
 	   
 	   
@@ -69,17 +63,18 @@ public class Discover
 
 
 
+   private boolean connectedToKing;
+   private String[] pinnedFrom = {"nwDiag", "neDiag", "swDiag", "seDiag",
+		   						  "lHoriz", "rHoriz", "above", "below"};
+   
 
-
-
-
-  
-
-   public boolean isOwnKingDiscovered()
+   public boolean isPiecePinned(int position)
    {
-      return ownKingDiscovered;
+	   
+	   
+	   
+	   return piecePinned;
    }
-
    
 
 
