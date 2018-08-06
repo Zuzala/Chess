@@ -15,10 +15,8 @@ public class Discover
    private String[] pieces;
    
    
-   private Knight nwKing;
-   private Knight nbKing;
-   private Queen qwKing;
-   private Queen qbKing;
+   private Queen queenSweep;
+   private Knight knightSweep;
    private final boolean checkingForCheck = true;
    
    private int whiteKingPosition;
@@ -47,10 +45,7 @@ public class Discover
    //checks if king is checked based on whose turn it is
    public void isKingInCheck()
    {
-	   nwKing = new Knight(blackKingPosition, g, checkingForCheck);
-	   nbKing = new Knight(whiteKingPosition, g, checkingForCheck);
-	   qwKing = new Queen(blackKingPosition, g, checkingForCheck);
-	   qbKing = new Queen(whiteKingPosition, g, checkingForCheck);
+
 	   
 	   
 	   
@@ -67,11 +62,20 @@ public class Discover
    private String[] pinnedFrom = {"nwDiag", "neDiag", "swDiag", "seDiag",
 		   						  "lHoriz", "rHoriz", "above", "below"};
    
+   
 
    public boolean isPiecePinned(int position)
    {
+	   queenSweep = new Queen(position, g, "pin");
 	   
-	   
+	   //is piece connected to friendly king by diagonal or horizontal
+	   connectedToKing = queenSweep.isKingConnected();
+	   //if connected, which way
+	   if(connectedToKing)
+	   {
+		   
+	   }
+	   //is there an enemy piece pinning from opposite way
 	   
 	   return piecePinned;
    }

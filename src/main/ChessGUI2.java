@@ -154,7 +154,6 @@ public class ChessGUI2 extends JFrame
          }
          
          squares[x].putClientProperty("board-index", x);
-         squares[x].putClientProperty("square-color", squareColors[x]);
          squares[x].addActionListener(new ButtonListener());  //adds an action listener to each square
          BoardPanel.add(squares[x]);  //add each square jbutton
 		}
@@ -795,7 +794,7 @@ public class ChessGUI2 extends JFrame
              break;
              
              case 'Q':
-                queen = new Queen(p, this, false);
+                queen = new Queen(p, this, " ");
                 possibleMoves = queen.getPossibleMoves();
                 possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
              break;
@@ -856,7 +855,7 @@ public class ChessGUI2 extends JFrame
                   break;
                   
                   case 'Q':
-                     queen = new Queen(p, this, false);
+                     queen = new Queen(p, this, " ");
                      possibleMoves = queen.getPossibleMoves();
                      possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
                   break;
