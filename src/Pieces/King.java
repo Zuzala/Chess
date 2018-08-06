@@ -18,10 +18,10 @@ public class King
    private int p;
    private String movePString;
    
-   public King(int position, String movePStrin, ChessGUI2 gee) 
+   public King(int position, String movePString, ChessGUI2 gee) 
    {
       p = position;
-      this.movePString = movePStrin;
+      this.movePString = movePString;
       g = gee;
       
       highlightMovesK();
@@ -34,15 +34,13 @@ public class King
 
       int caseCounterK = 0;
 
-      if(g.orientation == 'w' || g.orientation == 'b')
-      {
-         if(g.whiteTurn)
+         if(g.getTurn())
          {
             while(caseCounterK < 10)
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 60 && g.orientation == 'w')
+                        if(p == 60 && g.getOrientation() == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -62,7 +60,7 @@ public class King
                               }
                            }
                         }
-                        if(p == 3 && g.orientation == 'b')
+                        if(p == 3 && g.getOrientation() == 'b')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -283,13 +281,13 @@ public class King
          
          }
       
-         if(g.whiteTurn == false)
+         if(g.getTurn() == false)
          {
             while(caseCounterK < 10)
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 4 && g.orientation == 'w')
+                        if(p == 4 && g.getOrientation() == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -309,7 +307,7 @@ public class King
                               }
                            }
                         }
-                        if(p == 59 && g.orientation == 'b')
+                        if(p == 59 && g.getOrientation() == 'b')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -528,7 +526,7 @@ public class King
                   }
 
          }
-      }
+      
 
 
    }

@@ -17,10 +17,10 @@ public class Pawn
    private int p;
    private String movePString;
    
-   public Pawn(int position, String movePStrin, ChessGUI2 gee) 
+   public Pawn(int position, String movePString, ChessGUI2 gee) 
    {
       p = position;
-      this.movePString = movePStrin;
+      this.movePString = movePString;
       g = gee;
       
       highlightMovesP();
@@ -31,9 +31,9 @@ public class Pawn
    { 
       int caseCounterP = 0;
       
-      if(g.orientation == 'w')  //if g.orientation is white starting on bottom
+      if(g.getOrientation() == 'w')  //if g.getOrientation() is white starting on bottom
       {  
-         if(g.whiteTurn)
+         if(g.getTurn())
          {
                   while(caseCounterP < 4)
                   {
@@ -59,7 +59,7 @@ public class Pawn
                         {
                            if(p >= 25 && p <= 30)
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                 if((p - 1) == g.passantPawn)
                             {
@@ -108,7 +108,7 @@ public class Pawn
                         {
                            if(p == g.squaresAFileW[a])
                            {                         
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                  if((p + 1) == g.passantPawn)
                                  {
@@ -140,7 +140,7 @@ public class Pawn
                      {
                         for(int h = 0; h < g.squaresHFileW.length; h++)
                         {
-                           if(g.turnCounter == g.passantTurn)
+                           if(g.getTurnCount() == g.passantTurn)
                            {
                               if((p - 1) == g.passantPawn)
                               {
@@ -172,7 +172,7 @@ public class Pawn
                   }  
          }
          
-         if(g.whiteTurn == false)  //if black's turn and same as white's piece cases
+         if(g.getTurn() == false)  //if black's turn and same as white's piece cases
             {
                      while(caseCounterP < 4)
                      {
@@ -198,7 +198,7 @@ public class Pawn
                         {
                            if(p >= 33 && p <= 38)
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                 if((p - 1) == g.passantPawn)
                             {
@@ -245,7 +245,7 @@ public class Pawn
                         {
                            if(p == g.squaresAFileW[a])
                            {  
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                  if((p + 1) == g.passantPawn)
                                  {
@@ -278,7 +278,7 @@ public class Pawn
                         {
                            if(p == g.squaresHFileW[h])
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                               if((p - 1) == g.passantPawn)
                               {
@@ -311,9 +311,9 @@ public class Pawn
 
 }
       
-      if(g.orientation == 'b')  //if g.orientation is black starting on bottom
+      if(g.getOrientation() == 'b')  //if g.getOrientation() is black starting on bottom
       {  
-         if(g.whiteTurn)
+         if(g.getTurn())
          {
                   while(caseCounterP < 4)
                   {
@@ -339,7 +339,7 @@ public class Pawn
                         {
                            if(p >= 33 && p <= 38)
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                 if((p - 1) == g.passantPawn)
                             {
@@ -388,7 +388,7 @@ public class Pawn
                         {
                            if(p == g.squaresAFileB[a])
                            {                         
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                  if((p - 1) == g.passantPawn)
                                  {
@@ -420,7 +420,7 @@ public class Pawn
                      {
                         for(int h = 0; h < g.squaresHFileB.length; h++)
                         {
-                           if(g.turnCounter == g.passantTurn)
+                           if(g.getTurnCount() == g.passantTurn)
                            {
                               if((p + 1) == g.passantPawn)
                               {
@@ -452,7 +452,7 @@ public class Pawn
                   }  
          }
          
-         if(g.whiteTurn == false)  //if black's turn, same as white's piece cases
+         if(g.getTurn() == false)  //if black's turn, same as white's piece cases
             {
                      while(caseCounterP < 4)
                      {
@@ -478,7 +478,7 @@ public class Pawn
                         {
                            if(p >= 25 && p <= 30)
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                 if((p - 1) == g.passantPawn)
                             {
@@ -525,7 +525,7 @@ public class Pawn
                         {
                            if(p == g.squaresAFileB[a])
                            {  
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                                  if((p - 1) == g.passantPawn)
                                  {
@@ -558,7 +558,7 @@ public class Pawn
                         {
                            if(p == g.squaresHFileB[h])
                            {
-                              if(g.turnCounter == g.passantTurn)
+                              if(g.getTurnCount() == g.passantTurn)
                               {
                               if((p + 1) == g.passantPawn)
                               {

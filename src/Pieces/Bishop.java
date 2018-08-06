@@ -16,12 +16,10 @@ public class Bishop
 {
    private ChessGUI2 g; 
    private int p;
-   private String movePString;
    
-   public Bishop(int position, String movePStrin, ChessGUI2 gee) 
+   public Bishop(int position, ChessGUI2 gee) 
    {
       p = position;
-      this.movePString = movePStrin;
       g = gee;
       
       highlightMovesB();
@@ -33,9 +31,7 @@ public class Bishop
       int caseCounterB = 0;
       boolean continueLine = true;
       
-      if(g.orientation == 'w' || g.orientation == 'b')
-      {
-         if(g.whiteTurn)
+         if(g.getTurn())
          {
             while(caseCounterB < 4)
                   {
@@ -187,7 +183,7 @@ public class Bishop
                   }
          }
       
-      if(g.whiteTurn == false)
+      if(g.getTurn() == false)
       {
          while(caseCounterB < 4)
                   {
@@ -344,7 +340,7 @@ public class Bishop
       
       
       
-      }
+      
    
    }
 

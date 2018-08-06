@@ -4,33 +4,57 @@ Author: Andy Malinsky
 
 */
 
-
-
-
+import Pieces.Bishop;
+import Pieces.King;
+import Pieces.Knight;
+import Pieces.Pawn;
+import Pieces.Queen;
+import Pieces.Rook;
 
 public class Discover
 {
    private ChessGUI2 g;
-   private int p;
    
-      
-   public Discover(int position, int whiteKingLocale, int blackKingLocale, ChessGUI2 gee)
+   private Knight nKing;
+   private Queen qKing;
+   private final boolean checkingForCheck = true;
+   
+   private int whiteKingPosition;
+   private int blackKingPosition;   
+   private boolean whiteTurn;
+   
+   
+   public Discover(ChessGUI2 gee)
    {
-      p = position;
-      
+       
       g = gee;
-      
+      whiteKingPosition = g.getKingPosition('w');
+      blackKingPosition = g.getKingPosition('b');
+      whiteTurn = g.getTurn();
       
    }
 
+  
 
-   public Discover(int pos, int blackKingLocale)
+
+
+   //checks if king is checked based on whose turn it is
+   public void isKingInCheck()
    {
-      
-   
+	   if(whiteTurn)
+	   {
+		   nKing = new Knight(whiteKingPosition, g, checkingForCheck);
+	   }
+	   
+	   if(!whiteTurn)
+	   {
+		   
+	   }
+	   
+	   
+	   
    }
 
-   
 
 
 
@@ -40,19 +64,9 @@ public class Discover
 
 
 
-
-
-
-
-
-
-
-
-
-   
    private boolean ownKingDiscovered;
 
-   public boolean isOwnKingDiscover()
+   public boolean isOwnKingDiscovered()
    {
    
    
@@ -62,6 +76,9 @@ public class Discover
    
       return ownKingDiscovered;
    }
+
+   
+
 
 
 

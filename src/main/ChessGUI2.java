@@ -356,19 +356,10 @@ public class ChessGUI2 extends JFrame
                         pieces[position] = movePieceString;
                         squares[highlightedPiecePosition].setBackground(squareColor);
                         pieces[highlightedPiecePosition] = " ";
-                        
-//                        discover = new Discover(position, blackKingPosition);
-//                        blackKingInCheck = discover.isBlackKingChecked();
+                       
                         
                         
-                        if(blackKingInCheck)
-                        {
-                           blackCheckedTurn = turnCounter + 1;
-                           blackKingSquareColor = squares[blackKingPosition].getBackground();
-                           squares[blackKingPosition].setBackground(Color.red);
-                           
-                           
-                        }
+
                         
                         
                         
@@ -760,6 +751,7 @@ public class ChessGUI2 extends JFrame
    private Queen queen;
    private King king;
    
+   
    public void highlightMoves(int p, String movePString)
    {
       //clears arraylists of possible moves and their square colors
@@ -775,15 +767,15 @@ public class ChessGUI2 extends JFrame
                   break;
                
                case 'N':  //cases for knight moves
-                  knight = new Knight(p, movePString, this);            
+                  knight = new Knight(p, this, false);            
                  break;
                
                case 'B':  //cases for bishop moves
-                     bishop = new Bishop(p, movePString, this);
+                     bishop = new Bishop(p, this);
                   break;  
                
                case 'R':  //cases for rook moves
-                     rook = new Rook(p, movePString, this); 
+                     rook = new Rook(p, this); 
                   break;
                
                case 'K':  //cases for king moves              
@@ -791,7 +783,7 @@ public class ChessGUI2 extends JFrame
                   break;
                   
                   case 'Q':  //cases for queen moves
-                     queen = new Queen(p, movePString, this); 
+                     queen = new Queen(p, this, false); 
                   break;
                }   
             
@@ -827,20 +819,20 @@ public class ChessGUI2 extends JFrame
                      break;                  
                   
                   case 'N': 
-                  knight = new Knight(p, movePString, this);
+                  knight = new Knight(p, this, false);
                  break;
                case 'B':
-                     bishop = new Bishop(p, movePString, this);
+                     bishop = new Bishop(p, this);
                   break; 
                case 'R':
-                     rook = new Rook(p, movePString, this); 
+                     rook = new Rook(p, this); 
                   break;
                case 'K':  //cases for king moves              
                      king = new King(p, movePString, this); 
                   break;
                   
                   case 'Q':
-                     queen = new Queen(p, movePString, this);
+                     queen = new Queen(p, this, false);
                   break;
                 }   
             }
@@ -875,6 +867,9 @@ public class ChessGUI2 extends JFrame
    private boolean ownKingDiscovered;
    private boolean enemyKingDiscovered;
 
+   
+
+   
    //checks if attempted move is legal and returns boolean
    public boolean checkMove(int positionDes, boolean takingPiece)
    {
@@ -908,8 +903,26 @@ public class ChessGUI2 extends JFrame
          
          if(legalMoves.contains(true))
          {
-//            discover = new Discover(highlightedPiecePosition, whiteKingLocation, blackKingLocation, this);
-//            ownKingDiscovered = discover.isOwnKingDiscover();
+        	 
+
+        //   private boolean whiteKingInCheck;
+        //   private boolean blackKingInCheck;
+        //   private int whiteCheckedTurn;
+        //   private int blackCheckedTurn;
+        //   private Color whiteKingSquareColor;
+        //   private Color blackKingSquareColor;
+        //   private int whiteKingPosition;
+        //   private int blackKingPosition;
+            discover = new Discover(this);
+            discover.isKingInCheck();
+            
+//            if(blackKingInCheck)
+//            {
+//               blackCheckedTurn = turnCounter + 1;
+//               blackKingSquareColor = squares[blackKingPosition].getBackground();
+//               squares[blackKingPosition].setBackground(Color.red); 
+//            }
+            //ownKingDiscovered = discover.isOwnKingDiscovered();
             
             if(ownKingDiscovered)
             {
@@ -922,7 +935,7 @@ public class ChessGUI2 extends JFrame
                legal = true;
             }
          }
-         else if(legalMoves.contains(true) == false)
+         else if(!legalMoves.contains(true))
          {
             legal = false;
          }
@@ -1282,7 +1295,7 @@ public class ChessGUI2 extends JFrame
    private int pieceOpposite;
    private String tempString;
    private int orientationCounter = 2;
-   public char orientation = 'w';
+   private char orientation = 'w';
    
    private class FlipListener implements ActionListener
    {
@@ -1372,7 +1385,7 @@ public class ChessGUI2 extends JFrame
    
    
    
-   public int turnCounter = 0;
+   private int turnCounter = 0;
 	
    public void updateTurn()
 	{
@@ -1408,6 +1421,7 @@ public class ChessGUI2 extends JFrame
                         break;
                      case 'K':
                         squares[x].setIcon(piece.getWhitePiece(5));
+                        whiteKingPosition = x;
                         break;
                   }
                   break;
@@ -1431,7 +1445,8 @@ public class ChessGUI2 extends JFrame
                         squares[x].setIcon(piece.getBlackPiece(4));
                         break;
                      case 'K':
-                        squares[x].setIcon(piece.getBlackPiece(5));          
+                        squares[x].setIcon(piece.getBlackPiece(5));   
+                        blackKingPosition = x;
                         break;
                   }
                   break;
@@ -1446,7 +1461,7 @@ public class ChessGUI2 extends JFrame
 	}
    
    //sets the turn
-   public boolean whiteTurn;
+   private boolean whiteTurn;
    public void setTurn(int turnCount)
    {
       if((turnCount % 2) == 0)
@@ -1470,8 +1485,27 @@ public class ChessGUI2 extends JFrame
    {
       return orientation;
    }
+   
+   public int getTurnCount()
+   {
+	   return turnCounter;
+   }
 
-
+   public int getKingPosition(char c) 
+   {
+	   int kingPosition = 0;
+	   
+	   if(c == 'w')
+	   {
+		   kingPosition = whiteKingPosition;
+	   }
+	   if(c == 'b')
+	   {
+		   kingPosition = blackKingPosition;
+	   }
+	   
+	   return kingPosition;
+   }
 
 
 

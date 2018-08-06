@@ -15,13 +15,13 @@ public class Queen
 {
    private ChessGUI2 g; 
    private int p;
-   private String movePString;
+   private boolean checkingForCheck;
    
-   public Queen(int position, String movePStrin, ChessGUI2 gee) 
+   public Queen(int position, ChessGUI2 gee, boolean checkingForCheck) 
    {
       p = position;
-      this.movePString = movePStrin;
       g = gee;
+      this.checkingForCheck = checkingForCheck;
       
       highlightMovesQ();
    }
@@ -33,10 +33,7 @@ public class Queen
       int caseCounterQR = 0;
       boolean continueLine = true;
       
-      
-      if(g.orientation == 'w' || g.orientation == 'b')
-      {
-         if(g.whiteTurn)
+         if(g.getTurn())
          {
             while(caseCounterQB < 4)
                   {
@@ -327,7 +324,7 @@ public class Queen
 
          }
          
-         if(g.whiteTurn == false)
+         if(g.getTurn() == false)
          {
             while(caseCounterQB < 4)
                   {
@@ -618,7 +615,7 @@ public class Queen
                   }
 
          }
-      }
+      
 
 
 
