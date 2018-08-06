@@ -4,25 +4,28 @@ Author: Andy Malinsky
 
 */
 
-import Pieces.Bishop;
-import Pieces.King;
+
 import Pieces.Knight;
-import Pieces.Pawn;
 import Pieces.Queen;
-import Pieces.Rook;
+
 
 public class Discover
 {
    private ChessGUI2 g;
    
-   private Knight nKing;
-   private Queen qKing;
+   private Knight nwKing;
+   private Knight nbKing;
+   private Queen qwKing;
+   private Queen qbKing;
    private final boolean checkingForCheck = true;
    
    private int whiteKingPosition;
    private int blackKingPosition;   
    private boolean whiteTurn;
    
+   private boolean whiteKingInCheck = false;
+   private boolean blackKingInCheck = false;
+   private boolean ownKingDiscovered = false;
    
    public Discover(ChessGUI2 gee)
    {
@@ -41,14 +44,20 @@ public class Discover
    //checks if king is checked based on whose turn it is
    public void isKingInCheck()
    {
-	   if(whiteTurn)
+	   nwKing = new Knight(blackKingPosition, g, checkingForCheck);
+	   nbKing = new Knight(whiteKingPosition, g, checkingForCheck);
+	   qwKing = new Queen(blackKingPosition, g, checkingForCheck);
+	   qbKing = new Queen(whiteKingPosition, g, checkingForCheck);
+	   
+	   
+	   if(whiteTurn && whiteKingInCheck)
 	   {
-		   nKing = new Knight(whiteKingPosition, g, checkingForCheck);
+		   ownKingDiscovered = true;
 	   }
 	   
-	   if(!whiteTurn)
+	   if(!whiteTurn && blackKingInCheck)
 	   {
-		   
+		   ownKingDiscovered = true;
 	   }
 	   
 	   
@@ -64,16 +73,10 @@ public class Discover
 
 
 
-   private boolean ownKingDiscovered;
+  
 
    public boolean isOwnKingDiscovered()
    {
-   
-   
-   
-   
-      
-   
       return ownKingDiscovered;
    }
 

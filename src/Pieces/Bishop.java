@@ -16,11 +16,13 @@ public class Bishop
 {
    private ChessGUI2 g; 
    private int p;
+   private boolean whiteTurn;
    
    public Bishop(int position, ChessGUI2 gee) 
    {
       p = position;
       g = gee;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesB();
    }
@@ -31,7 +33,7 @@ public class Bishop
       int caseCounterB = 0;
       boolean continueLine = true;
       
-         if(g.getTurn())
+         if(whiteTurn)
          {
             while(caseCounterB < 4)
                   {
@@ -183,7 +185,7 @@ public class Bishop
                   }
          }
       
-      if(g.getTurn() == false)
+      if(whiteTurn == false)
       {
          while(caseCounterB < 4)
                   {

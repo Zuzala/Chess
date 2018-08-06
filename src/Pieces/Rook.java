@@ -15,11 +15,13 @@ public class Rook
 {
    private ChessGUI2 g; 
    private int p;
+   private boolean whiteTurn;
    
    public Rook(int position, ChessGUI2 gee) 
    {
       p = position;
       g = gee;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesR();
    }
@@ -30,7 +32,7 @@ public class Rook
       int caseCounterR = 0;
       boolean continueLine = true;
       
-         if(g.getTurn())
+         if(whiteTurn)
          {
             while(caseCounterR < 4)
                   {
@@ -176,7 +178,7 @@ public class Rook
          
          }
       
-         if(g.getTurn() == false)
+         if(whiteTurn == false)
          {
             while(caseCounterR < 4)
                   {

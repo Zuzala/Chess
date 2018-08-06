@@ -16,12 +16,14 @@ public class Pawn
    private ChessGUI2 g; 
    private int p;
    private String movePString;
+   private boolean whiteTurn;
    
    public Pawn(int position, String movePString, ChessGUI2 gee) 
    {
       p = position;
       this.movePString = movePString;
       g = gee;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesP();
    }
@@ -33,7 +35,7 @@ public class Pawn
       
       if(g.getOrientation() == 'w')  //if g.getOrientation() is white starting on bottom
       {  
-         if(g.getTurn())
+         if(whiteTurn)
          {
                   while(caseCounterP < 4)
                   {
@@ -172,7 +174,7 @@ public class Pawn
                   }  
          }
          
-         if(g.getTurn() == false)  //if black's turn and same as white's piece cases
+         if(whiteTurn == false)  //if black's turn and same as white's piece cases
             {
                      while(caseCounterP < 4)
                      {
@@ -313,7 +315,7 @@ public class Pawn
       
       if(g.getOrientation() == 'b')  //if g.getOrientation() is black starting on bottom
       {  
-         if(g.getTurn())
+         if(whiteTurn)
          {
                   while(caseCounterP < 4)
                   {
@@ -452,7 +454,7 @@ public class Pawn
                   }  
          }
          
-         if(g.getTurn() == false)  //if black's turn, same as white's piece cases
+         if(whiteTurn == false)  //if black's turn, same as white's piece cases
             {
                      while(caseCounterP < 4)
                      {

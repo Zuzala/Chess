@@ -15,6 +15,7 @@ public class Queen
 {
    private ChessGUI2 g; 
    private int p;
+   private boolean whiteTurn;
    private boolean checkingForCheck;
    
    public Queen(int position, ChessGUI2 gee, boolean checkingForCheck) 
@@ -22,6 +23,7 @@ public class Queen
       p = position;
       g = gee;
       this.checkingForCheck = checkingForCheck;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesQ();
    }
@@ -33,7 +35,7 @@ public class Queen
       int caseCounterQR = 0;
       boolean continueLine = true;
       
-         if(g.getTurn())
+         if(whiteTurn)
          {
             while(caseCounterQB < 4)
                   {
@@ -324,7 +326,7 @@ public class Queen
 
          }
          
-         if(g.getTurn() == false)
+         if(whiteTurn == false)
          {
             while(caseCounterQB < 4)
                   {

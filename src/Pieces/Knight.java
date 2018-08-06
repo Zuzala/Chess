@@ -16,13 +16,16 @@ public class Knight
 {
    private ChessGUI2 g; 
    private int p;
+   private boolean whiteTurn;
    private boolean checkingForCheck;
+   private boolean kingInCheck;
    
    public Knight(int position, ChessGUI2 gee, boolean checkingForCheck) 
    {
       p = position;
       g = gee;
       this.checkingForCheck = checkingForCheck;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesN();
    }
@@ -50,7 +53,7 @@ public class Knight
                            
                   for(int x = 0; x < posPositions.length; x++)
                   {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -82,7 +85,7 @@ public class Knight
                            
                   for(int x = 0; x < posPositions.length; x++)
                   {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -114,7 +117,7 @@ public class Knight
                            
                   for(int x = 0; x < posPositions.length; x++)
                   {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -148,7 +151,7 @@ public class Knight
                            
                   for(int x = 0; x < posPositions.length; x++)
                   {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -182,7 +185,7 @@ public class Knight
                            
                   for(int x = 0; x < posPositions.length; x++)
                   {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -212,7 +215,7 @@ public class Knight
                            
                    for(int x = 0; x < posPositions.length; x++)
                    {
-                      if(g.getTurn())
+                      if(whiteTurn)
                       {
                          if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                          {
@@ -242,7 +245,7 @@ public class Knight
                            
                    for(int x = 0; x < posPositions.length; x++)
                    {
-                      if(g.getTurn())
+                      if(whiteTurn)
                       {
                          if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                          {
@@ -272,7 +275,7 @@ public class Knight
                            
                    for(int x = 0; x < posPositions.length; x++)
                    {
-                      if(g.getTurn())
+                      if(whiteTurn)
                       {
                          if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                          {
@@ -302,7 +305,7 @@ public class Knight
                            
                    for(int x = 0; x < posPositions.length; x++)
                    {
-                      if(g.getTurn())
+                      if(whiteTurn)
                       {
                          if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                          {
@@ -333,7 +336,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -363,7 +366,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -394,7 +397,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -425,7 +428,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                     if(g.getTurn())
+                     if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -456,7 +459,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -487,7 +490,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -517,7 +520,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -548,7 +551,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -580,7 +583,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -612,7 +615,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -643,7 +646,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -674,7 +677,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -705,7 +708,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -737,7 +740,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -770,7 +773,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {
@@ -804,7 +807,7 @@ public class Knight
                            
                            for(int x = 0; x < posPositions.length; x++)
                            {
-                              if(g.getTurn())
+                              if(whiteTurn)
                      {
                         if(g.pieces[posPositions[x]] == " " || g.pieces[posPositions[x]].charAt(0) == 'B')
                         {

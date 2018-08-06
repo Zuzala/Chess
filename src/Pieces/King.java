@@ -17,12 +17,14 @@ public class King
    private ChessGUI2 g; 
    private int p;
    private String movePString;
+   private boolean whiteTurn;
    
    public King(int position, String movePString, ChessGUI2 gee) 
    {
       p = position;
       this.movePString = movePString;
       g = gee;
+      this.whiteTurn = g.getTurn();
       
       highlightMovesK();
    }
@@ -34,7 +36,7 @@ public class King
 
       int caseCounterK = 0;
 
-         if(g.getTurn())
+         if(whiteTurn)
          {
             while(caseCounterK < 10)
                   {
@@ -281,7 +283,7 @@ public class King
          
          }
       
-         if(g.getTurn() == false)
+         if(whiteTurn == false)
          {
             while(caseCounterK < 10)
                   {

@@ -884,18 +884,14 @@ public class ChessGUI2 extends JFrame
          if(posPos == positionDesired)
          {
             legalCheck = true;
-            
-            if(tryingToTakePiece)
-            {
-               showTakenPiece(pieces[positionDesired]);
-            }
+        	 
+
             
          }
          
          else
          {
             legalCheck = false;
-            
          }   
          
          legalMoves.add(legalCheck);
@@ -913,8 +909,8 @@ public class ChessGUI2 extends JFrame
         //   private Color blackKingSquareColor;
         //   private int whiteKingPosition;
         //   private int blackKingPosition;
-            discover = new Discover(this);
-            discover.isKingInCheck();
+//            discover = new Discover(this);
+//            discover.isKingInCheck();
             
 //            if(blackKingInCheck)
 //            {
@@ -922,24 +918,23 @@ public class ChessGUI2 extends JFrame
 //               blackKingSquareColor = squares[blackKingPosition].getBackground();
 //               squares[blackKingPosition].setBackground(Color.red); 
 //            }
-            //ownKingDiscovered = discover.isOwnKingDiscovered();
-            
-            if(ownKingDiscovered)
-            {
-               legal = false;
-            }
-            
-            else if(!ownKingDiscovered)
-            {
-            
-               legal = true;
-            }
+//            ownKingDiscovered = discover.isOwnKingDiscovered();
+//            
+//            if(ownKingDiscovered)
+//            {
+//               legal = false;
+//            }
+        	 legal = true;
+        	 
+        	 if(legal && tryingToTakePiece)
+             {
+                showTakenPiece(pieces[positionDesired]);
+             }
          }
          else if(!legalMoves.contains(true))
          {
             legal = false;
          }
-      
       
       return legal;
    }
