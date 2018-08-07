@@ -5,6 +5,7 @@ Author: Andy Malinsky
 */
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,10 +64,10 @@ public class Discover
 
    private boolean connectedToFriendlyKing;
    private String pinFromDirection;
-   private Map<Boolean, Integer> directionCase = new HashMap<Boolean, Integer>();
+   private Map<Boolean, Integer[]> directionCase = new HashMap<Boolean, Integer[]>();
    private boolean pinnedFromDiag;
    
-   public Map<Boolean, Integer> getDirectionPinnedFrom(int position)
+   public Map<Boolean, Integer[]> getDirectionPinnedFrom(int position)
    {
 	   queenSweep = new Queen(position, g, "pin");
 	   
@@ -77,10 +78,11 @@ public class Discover
 	   if(connectedToFriendlyKing)
 	   {
 		   directionCase = queenSweep.getPinFromDirection();
-		   for(Map.Entry<Boolean, Integer> entry : directionCase.entrySet())
+		   for(Map.Entry<Boolean, Integer[]> entry : directionCase.entrySet())
 		   {
 			   boolean connectedOnDiagKey = entry.getKey();
-			   int caseNum = entry.getValue();
+			   Integer[] caseNum = entry.getValue();
+			   
 			   
 			   if(connectedOnDiagKey)  //if connected to king on diag
 			   {

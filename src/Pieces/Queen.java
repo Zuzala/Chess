@@ -21,7 +21,9 @@ public class Queen
    private boolean connectedToFriendlyKing = false;
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
-   private Map<Boolean, Integer> directionCases = new HashMap<Boolean, Integer>();
+   private boolean pinCases;
+   private Integer[] caseNums = new Integer[2];
+   private Map<Boolean, Integer[]> directionCases = new HashMap<Boolean, Integer[]>();
    private boolean enemyPinnerFound;
 
    
@@ -60,7 +62,7 @@ public class Queen
    }
    
    
-   public Map<Boolean, Integer> getPinFromDirection()
+   public Map<Boolean, Integer[]> getPinFromDirection()
    {
 	   return directionCases;
    }
@@ -71,9 +73,22 @@ public class Queen
    }
    
    
-   public void queenDiagCheck(int initialCase)
+   public void queenDiagCheck(Integer[] cases)
    {
-	   int caseCounterQB = initialCase;
+	   int caseCounterQB;
+	   pinCases = false;
+	   
+		   if(cases[0] == 0 && cases[1] == 0)
+		   {
+			   caseCounterQB = 0;
+		   }
+		   else
+		   {
+			   pinCases = true;
+			   caseCounterQB = cases[0];	   
+		   }
+
+
 	   
 	   if(caseCounterQB > 0)
 	   {
@@ -117,12 +132,19 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
+                            		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                             	
                             	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
                             	{
                             		connectedToFriendlyKing = true;
-                            		directionCases.put(true, 3);
+                            		caseNums[0] = caseCounterQB;
+                            		caseNums[1] = 3;
+                            		directionCases.put(true, caseNums);
                             	}
                             	else
                             	{
@@ -137,7 +159,23 @@ public class Queen
                             }
                          }
                       } 
-                      caseCounterQB++;                       
+                      
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }
+                                        
                    }
                    if(caseCounterQB == 1)
                    {
@@ -170,12 +208,19 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
+                            		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                             	
                             	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
                             	{
                             		connectedToFriendlyKing = true;
-                            		directionCases.put(true, 2);
+                            		caseNums[0] = caseCounterQB;
+                            		caseNums[1] = 2;
+                            		directionCases.put(true, caseNums);
                             	}
                             	else
                             	{
@@ -190,7 +235,21 @@ public class Queen
                             }
                       }
                    } 
-                      caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                       
                 }
                    if(caseCounterQB == 2)
                    {
@@ -224,12 +283,19 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
+                            		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                             	
                             	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
                             	{
                             		connectedToFriendlyKing = true;
-                            		directionCases.put(true, 1);
+                            		caseNums[0] = 1;
+                            		caseNums[1] = caseCounterQB;
+                            		directionCases.put(true, caseNums);
                             	}
                             	else
                             	{
@@ -244,7 +310,21 @@ public class Queen
                             }
                       }
                    } 
-                   caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                       
                 }
                    if(caseCounterQB == 3)
                    {
@@ -277,12 +357,19 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
+                            		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                             	
                             	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
                             	{
                             		connectedToFriendlyKing = true;
-                            		directionCases.put(true, 0);
+                            		caseNums[0] = 0;
+                            		caseNums[1] = caseCounterQB;
+                            		directionCases.put(true, caseNums);
                             	}
                             	else
                             	{
@@ -298,7 +385,21 @@ public class Queen
                          }
                       }
                    } 
-                      caseCounterQB++;                       
+                   if(pinCases)
+                   {
+                	   if(caseCounterQB == cases[1])
+                   	  {
+                   		  return;
+                   	  }
+                   	  else
+                   	  {
+                   		caseCounterQB = cases[1];
+                   	  }
+                   }
+                   else
+                   {
+                 	  caseCounterQB++;  
+                   }                       
                 }
        }
        
@@ -336,12 +437,19 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
+                               		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                	
                                	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
                                	{
                                		connectedToFriendlyKing = true;
-                               		directionCases.put(true, 3);
+                               		caseNums[0] = caseCounterQB;
+                            		caseNums[1] = 3;
+                               		directionCases.put(true, caseNums);
                                	}
                                	else
                                	{
@@ -356,7 +464,21 @@ public class Queen
                                }
                          }
                       } 
-                      caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                       
                    }
                    if(caseCounterQB == 1)
                    {
@@ -389,12 +511,19 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
+                               		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                	
                                	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
                                	{
                                		connectedToFriendlyKing = true;
-                               		directionCases.put(true, 2);
+                               		caseNums[0] = caseCounterQB;
+                            		caseNums[1] = 2;
+                               		directionCases.put(true, caseNums);
                                	}
                                	else
                                	{
@@ -409,7 +538,21 @@ public class Queen
                                }
                          }
                       } 
-                      caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                       
                    }
                    if(caseCounterQB == 2)
                    {
@@ -442,12 +585,19 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
+                               		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                	
                                	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
                                	{
                                		connectedToFriendlyKing = true;
-                               		directionCases.put(true, 1);
+                               		caseNums[0] = 1;
+                            		caseNums[1] = caseCounterQB;
+                               		directionCases.put(true, caseNums);
                                	}
                                	else
                                	{
@@ -462,7 +612,21 @@ public class Queen
                                }
                          }
                       } 
-                      caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                       
                    }
                    if(caseCounterQB == 3)
                    {
@@ -495,12 +659,19 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
+                               		if(pinCases)
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                	
                                	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
                                	{
                                		connectedToFriendlyKing = true;
-                               		directionCases.put(true, 0);
+                               		caseNums[0] = 0;
+                            		caseNums[1] = caseCounterQB;
+                               		directionCases.put(true, caseNums);
                                	}
                                	else
                                	{
@@ -516,7 +687,21 @@ public class Queen
                                }
                          }
                       } 
-                      caseCounterQB++;                       
+                      if(pinCases)
+                      {
+                    	  if(caseCounterQB == cases[1])
+                      	  {
+                      		  return;
+                      	  }
+                      	  else
+                      	  {
+                      		caseCounterQB = cases[1];
+                      	  }
+                      }
+                      else
+                      {
+                    	  caseCounterQB++;  
+                      }                      
                    }
                 }
                  
@@ -524,10 +709,21 @@ public class Queen
        }
    }
    
-   public void queenHorizCheck(int initialCase)
+   public void queenHorizCheck(Integer[] cases)
    {
+	   int caseCounterQR;
+	   pinCases = false;
 	   
-	   int caseCounterQR = initialCase;
+		   if(cases[0] == 0 && cases[1] == 0)
+		   {
+			   caseCounterQR = 0;
+		   }
+		   else
+		   {
+			   pinCases = true;
+			   caseCounterQR = cases[0];	   
+		   }
+		   
 	   if(caseCounterQR > 0)
 	   {
 		      possibleMoves.clear();
@@ -566,12 +762,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 1);
+	                               		caseNums[0] = caseCounterQR;
+	                            		caseNums[1] = 1;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -586,7 +789,22 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                      	  if(caseCounterQR == cases[1])
+	                      	  {
+	                      		  return;
+	                      	  }
+	                      	  else
+	                      	  {
+	                      		caseCounterQR = cases[1];
+	                      	  }
+	                        	
+	                        }
+	                        else
+	                        {
+	                      	  caseCounterQR++;  
+	                        }
 	                     } 
 	                     
 	                     if(caseCounterQR == 1)
@@ -618,12 +836,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 0);
+	                               		caseNums[0] = 0;
+	                            		caseNums[1] = caseCounterQR;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -638,7 +863,21 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+		                        }
+		                        else
+		                        {
+		                      	  caseCounterQR++;  
+		                        }
 	                     } 
 	                     if(caseCounterQR == 2)
 	                     {
@@ -669,12 +908,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 3);
+	                               		caseNums[0] = caseCounterQR;
+	                            		caseNums[1] = 3;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -689,7 +935,21 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+	                        }
+	                        else
+	                        {
+	                      	  caseCounterQR++;  
+	                        }
 	                     } 
 	                     if(caseCounterQR == 3)
 	                     {
@@ -720,12 +980,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 2);
+	                               		caseNums[0] = 2;
+	                            		caseNums[1] = caseCounterQR;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -740,7 +1007,21 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+	                        }
+	                        else
+	                        {
+	                      	  caseCounterQR++;  
+	                        }
 	                     }
 	                  }
 
@@ -779,12 +1060,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 1);
+	                               		caseNums[0] = caseCounterQR;
+	                            		caseNums[1] = 1;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -799,7 +1087,21 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+	                        }
+	                        else
+	                        {
+	                      	  caseCounterQR++;  
+	                        }
 	                     } 
 	                     
 	                     if(caseCounterQR == 1)
@@ -831,12 +1133,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 0);
+	                               		caseNums[0] = 0;
+	                            		caseNums[1] = caseCounterQR;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -851,7 +1160,21 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                         caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+	                        }
+	                        else
+	                        {
+	                      	  caseCounterQR++;  
+	                        }
 	                     } 
 	                     if(caseCounterQR == 2)
 	                     {
@@ -882,12 +1205,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 3);
+	                               		caseNums[0] = caseCounterQR;
+	                            		caseNums[1] = 3;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -902,7 +1232,21 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+		                        }
+		                        else
+		                        {
+		                      	  caseCounterQR++;  
+		                        }
 	                     } 
 	                     if(caseCounterQR == 3)
 	                     {
@@ -932,12 +1276,19 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
+	                               		if(pinCases)
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                               	
 	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
 	                               	{
 	                               		connectedToFriendlyKing = true;
-	                               		directionCases.put(true, 2);
+	                               		caseNums[0] = 2;
+	                            		caseNums[1] = caseCounterQR;
+	                               		directionCases.put(false, caseNums);
 	                               	}
 	                               	else
 	                               	{
@@ -952,7 +1303,21 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        caseCounterQR++;
+	                        if(pinCases)
+	                        {
+	                        	if(caseCounterQR == cases[1])
+		                      	  {
+		                      		  return;
+		                      	  }
+		                      	  else
+		                      	  {
+		                      		caseCounterQR = cases[1];
+		                      	  }
+		                        }
+		                        else
+		                        {
+		                      	  caseCounterQR++;  
+		                        }
 	                     }
 	                  }
 
@@ -966,9 +1331,11 @@ public class Queen
    { 
 	      possibleMoves.clear();
 	      possibleMoveSquareColors.clear();
-	   
-	  queenDiagCheck(0);
-      queenHorizCheck(0);
+	  
+	      caseNums[0] = 0;
+	      caseNums[1] = 0;
+	  queenDiagCheck(caseNums);
+      queenHorizCheck(caseNums);
       
 
 
