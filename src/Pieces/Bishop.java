@@ -92,7 +92,7 @@ public class Bishop
                               }
                                  
                               int posPosition = nWestDiag;
-                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B' || pinCases)
+                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
                                  possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -104,7 +104,7 @@ public class Bishop
                            }
                         } 
                         
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -140,7 +140,7 @@ public class Bishop
                               }
                               
                               int posPosition = nEastDiag;
-                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B' || pinCases)
+                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
                                  possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -151,7 +151,7 @@ public class Bishop
                               }
                         }
                      } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -188,7 +188,7 @@ public class Bishop
 
                                  
                               int posPosition = sWestDiag;
-                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B' || pinCases)
+                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
                                  possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -199,7 +199,7 @@ public class Bishop
                               }
                         }
                      } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -235,7 +235,7 @@ public class Bishop
                               } 
                                   
                               int posPosition = sEastDiag;
-                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B' || pinCases)
+                              if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
                                  possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -247,7 +247,7 @@ public class Bishop
                            }
                         }
                      } 
-                     if(isPinned)
+                     if(isPinned && caseCounterB == cases[1])
                      {
                      	return;
                      }
@@ -288,7 +288,7 @@ public class Bishop
                                  }
                                  
                                  int posPosition = nWestDiag;
-                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W' || pinCases)
+                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                                  {
                                     possibleMoves.add(posPosition);
                                     possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -299,7 +299,7 @@ public class Bishop
                                  }
                            }
                         } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -335,7 +335,7 @@ public class Bishop
                                  }
                                  
                                  int posPosition = nEastDiag;
-                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W' || pinCases)
+                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                                  {
                                     possibleMoves.add(posPosition);
                                     possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -346,7 +346,7 @@ public class Bishop
                                  }
                            }
                         } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -382,7 +382,7 @@ public class Bishop
                                  }
                                  
                                  int posPosition = sWestDiag;
-                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W' || pinCases)
+                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                                  {
                                     possibleMoves.add(posPosition);
                                     possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -393,7 +393,7 @@ public class Bishop
                                  }
                            }
                         } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
@@ -429,7 +429,7 @@ public class Bishop
                                  }
                                  
                                  int posPosition = sEastDiag;
-                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W' || pinCases)
+                                 if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                                  {
                                     possibleMoves.add(posPosition);
                                     possibleMovesquareColors.add(g.getSquareColor(posPosition));
@@ -441,7 +441,7 @@ public class Bishop
                                  }
                            }
                         } 
-                        if(isPinned)
+                        if(isPinned && caseCounterB == cases[1])
                         {
                         	return;
                         }
