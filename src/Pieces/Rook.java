@@ -46,22 +46,22 @@ public class Rook
                        continueLine = true;
                         if(p + 1 <= 63 && pieces[p+1].charAt(0) != 'W')
                         {
-                           rHorizCheck:
-                           for(int rHoriz = p+1; rHoriz <= 63;  rHoriz++)
+                           eHorizCheck:
+                           for(int eHoriz = p+1; eHoriz <= 63;  eHoriz++)
                            {  
-                              if(pieces[rHoriz].charAt(0) == 'W' || pieces[rHoriz].charAt(0) == 'B' || rHoriz == 7 || rHoriz == 15 || rHoriz == 23 || rHoriz == 31 || 
-                              rHoriz == 39 || rHoriz == 47 || rHoriz == 55 || rHoriz == 63)
+                              if(pieces[eHoriz].charAt(0) == 'W' || pieces[eHoriz].charAt(0) == 'B' || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
+                              eHoriz == 39 || eHoriz == 47 || eHoriz == 55 || eHoriz == 63)
                               {
                                  continueLine = false;
                               }
                               if(p == 7 || p == 15 || p == 23 || p == 31 || 
                                p == 39 || p == 47 || p == 55 || p == 63)
                               {
-                                 break rHorizCheck;
+                                 break eHorizCheck;
                               }
 
                               
-                              int posPosition = rHoriz;
+                              int posPosition = eHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
@@ -69,7 +69,7 @@ public class Rook
                               }
                               if(continueLine == false)
                                  {
-                                    break rHorizCheck;
+                                    break eHorizCheck;
                                  }
                            }
                         }
@@ -81,22 +81,22 @@ public class Rook
                        continueLine = true;
                         if(p - 1 >= 0 && pieces[p-1].charAt(0) != 'W')
                         {
-                           lHorizCheck:
-                           for(int lHoriz = p-1; lHoriz >= 0;  lHoriz--)
+                           wHorizCheck:
+                           for(int wHoriz = p-1; wHoriz >= 0;  wHoriz--)
                            {  
-                              if(pieces[lHoriz].charAt(0) == 'W' || pieces[lHoriz].charAt(0) == 'B' || lHoriz == 0 || lHoriz == 8 || lHoriz == 16 || lHoriz == 24 || 
-                              lHoriz == 32 || lHoriz == 40 || lHoriz == 48 || lHoriz == 56)
+                              if(pieces[wHoriz].charAt(0) == 'W' || pieces[wHoriz].charAt(0) == 'B' || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
+                              wHoriz == 32 || wHoriz == 40 || wHoriz == 48 || wHoriz == 56)
                               {
                                  continueLine = false;
                               }
                               if(p == 0 || p == 8 || p == 16 || p == 24 || 
                                p == 32 || p == 40 || p == 48 || p == 56)
                               {
-                                 break lHorizCheck;
+                                 break wHorizCheck;
                               }
    
                                  
-                              int posPosition = lHoriz;
+                              int posPosition = wHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
@@ -104,7 +104,7 @@ public class Rook
                               }
                               if(continueLine == false)
                               {
-                                 break lHorizCheck;
+                                 break wHorizCheck;
                               }
                            }
                         }
@@ -115,22 +115,22 @@ public class Rook
                        continueLine = true;
                         if(p - 8 >= 0 && pieces[p-8].charAt(0) != 'W')
                         {
-                           verticalCheck:
-                           for(int vertical = p-8; vertical >= 0; vertical -= 8)
+                           nHorizCheck:
+                           for(int nHoriz = p-8; nHoriz >= 0; nHoriz -= 8)
                            {  
-                              if(pieces[vertical].charAt(0) == 'W' || pieces[vertical].charAt(0) == 'B' || vertical == 0 || vertical == 1 || vertical == 2 || vertical == 3 || 
-                              vertical == 4 || vertical == 5 || vertical == 6 || vertical == 7)
+                              if(pieces[nHoriz].charAt(0) == 'W' || pieces[nHoriz].charAt(0) == 'B' || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
+                              nHoriz == 4 || nHoriz == 5 || nHoriz == 6 || nHoriz == 7)
                               {
                                  continueLine = false;
                               }
                               if(p == 0 || p == 1 || p == 2 || p == 3 || 
                                p == 4 || p == 5 || p == 6 || p == 7)
                               {
-                                 break verticalCheck;
+                                 break nHorizCheck;
                               }
    
                                  
-                              int posPosition = vertical;
+                              int posPosition = nHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
@@ -138,7 +138,7 @@ public class Rook
                               }
                               if(continueLine == false)
                               {
-                                 break verticalCheck;
+                                 break nHorizCheck;
                               }
                            }
                         }
@@ -149,22 +149,22 @@ public class Rook
                        continueLine = true;
                         if(p + 8 <=63 && pieces[p+8].charAt(0) != 'W')
                         {
-                           lowCheck:
-                           for(int low = p+8; low <= 63; low += 8)
+                           sHorizCheck:
+                           for(int sHoriz = p+8; sHoriz <= 63; sHoriz += 8)
                            {  
-                              if(pieces[low].charAt(0) == 'W' || pieces[low].charAt(0) == 'B' || low == 56 || low == 57 || low == 58 || low == 59 || 
-                              low == 60 || low == 61 || low == 62 || low == 63)
+                              if(pieces[sHoriz].charAt(0) == 'W' || pieces[sHoriz].charAt(0) == 'B' || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
+                              sHoriz == 60 || sHoriz == 61 || sHoriz == 62 || sHoriz == 63)
                               {
                                  continueLine = false;
                               }
                               if(p == 56 || p == 57 || p == 58 || p == 59 || 
                                p == 60 || p == 61 || p == 62 || p == 63)
                               {
-                                 break lowCheck;
+                                 break sHorizCheck;
                               }
    
                                  
-                              int posPosition = low;
+                              int posPosition = sHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'B')
                               {
                                  possibleMoves.add(posPosition);
@@ -172,7 +172,7 @@ public class Rook
                               }
                               if(continueLine == false)
                               {
-                                 break lowCheck;
+                                 break sHorizCheck;
                               }
                            }
                         }
@@ -192,11 +192,11 @@ public class Rook
                        continueLine = true;
                         if(p + 1 <= 63 && pieces[p+1].charAt(0) != 'B')
                         {
-                           rHorizCheck:
-                           for(int rHoriz = p+1; rHoriz <= 63;  rHoriz++)
+                           eHorizCheck:
+                           for(int eHoriz = p+1; eHoriz <= 63;  eHoriz++)
                            {  
-                              if(pieces[rHoriz].charAt(0) == 'W' || pieces[rHoriz].charAt(0) == 'B' || rHoriz == 7 || rHoriz == 15 || rHoriz == 23 || rHoriz == 31 || 
-                              rHoriz == 39 || rHoriz == 47 || rHoriz == 55 || rHoriz == 63)
+                              if(pieces[eHoriz].charAt(0) == 'W' || pieces[eHoriz].charAt(0) == 'B' || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
+                              eHoriz == 39 || eHoriz == 47 || eHoriz == 55 || eHoriz == 63)
                               {
                                  continueLine = false;
                               }
@@ -204,10 +204,10 @@ public class Rook
                               if(p == 7 || p == 15 || p == 23 || p == 31 || 
                                p == 39 || p == 47 || p == 55 || p == 63)
                               {
-                                 break rHorizCheck;
+                                 break eHorizCheck;
                               }
                                  
-                              int posPosition = rHoriz;
+                              int posPosition = eHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                               {
                                  possibleMoves.add(posPosition);
@@ -215,7 +215,7 @@ public class Rook
                               }
                               if(continueLine == false)
                                  {
-                                    break rHorizCheck;
+                                    break eHorizCheck;
                                  }
                            }
                         }
@@ -227,22 +227,22 @@ public class Rook
                        continueLine = true;
                         if(p - 1 >= 0 && pieces[p-1].charAt(0) != 'B')
                         {
-                           lHorizCheck:
-                           for(int lHoriz = p-1; lHoriz >= 0;  lHoriz--)
+                           wHorizCheck:
+                           for(int wHoriz = p-1; wHoriz >= 0;  wHoriz--)
                            {  
-                              if(pieces[lHoriz].charAt(0) == 'W' || pieces[lHoriz].charAt(0) == 'B' || lHoriz == 0 || lHoriz == 8 || lHoriz == 16 || lHoriz == 24 || 
-                              lHoriz == 32 || lHoriz == 40 || lHoriz == 48 || lHoriz == 56)
+                              if(pieces[wHoriz].charAt(0) == 'W' || pieces[wHoriz].charAt(0) == 'B' || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
+                              wHoriz == 32 || wHoriz == 40 || wHoriz == 48 || wHoriz == 56)
                               {
                                  continueLine = false;
                               }
                               if(p == 0 || p == 8 || p == 16 || p == 24 || 
                                p == 32 || p == 40 || p == 48 || p == 56)
                               {
-                                 break lHorizCheck;
+                                 break wHorizCheck;
                               }
    
                                  
-                              int posPosition = lHoriz;
+                              int posPosition = wHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                               {
                                  possibleMoves.add(posPosition);
@@ -250,7 +250,7 @@ public class Rook
                               }
                               if(continueLine == false)
                                  {
-                                    break lHorizCheck;
+                                    break wHorizCheck;
                                  }
                            }
                         }
@@ -261,22 +261,22 @@ public class Rook
                        continueLine = true;
                         if(p - 8 >= 0 && pieces[p-8].charAt(0) != 'B')
                         {
-                           verticalCheck:
-                           for(int vertical = p-8; vertical >= 0; vertical -= 8)
+                           nHorizCheck:
+                           for(int nHoriz = p-8; nHoriz >= 0; nHoriz -= 8)
                            {  
-                              if(pieces[vertical].charAt(0) == 'W' || pieces[vertical].charAt(0) == 'B' || vertical == 0 || vertical == 1 || vertical == 2 || vertical == 3 || 
-                              vertical == 4 || vertical == 5 || vertical == 6 || vertical == 7)
+                              if(pieces[nHoriz].charAt(0) == 'W' || pieces[nHoriz].charAt(0) == 'B' || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
+                              nHoriz == 4 || nHoriz == 5 || nHoriz == 6 || nHoriz == 7)
                               {
                                  continueLine = false;
                               }
                               if(p == 0 || p == 1 || p == 2 || p == 3 || 
                                p == 4 || p == 5 || p == 6 || p == 7)
                               {
-                                 break verticalCheck;
+                                 break nHorizCheck;
                               }
    
                                  
-                              int posPosition = vertical;
+                              int posPosition = nHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                               {
                                  possibleMoves.add(posPosition);
@@ -284,7 +284,7 @@ public class Rook
                               }
                               if(continueLine == false)
                                  {
-                                    break verticalCheck;
+                                    break nHorizCheck;
                                  }
                            }
                         }
@@ -295,21 +295,21 @@ public class Rook
                        continueLine = true;
                         if(p + 8 <=63 && pieces[p+8].charAt(0) != 'B')
                         {
-                           lowCheck:
-                           for(int low = p+8; low <= 63; low += 8)
+                           sHorizCheck:
+                           for(int sHoriz = p+8; sHoriz <= 63; sHoriz += 8)
                            {  
-                              if(pieces[low].charAt(0) == 'W' || pieces[low].charAt(0) == 'B' || low == 56 || low == 57 || low == 58 || low == 59 || 
-                              low == 60 || low == 61 || low == 62 || low == 63)
+                              if(pieces[sHoriz].charAt(0) == 'W' || pieces[sHoriz].charAt(0) == 'B' || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
+                              sHoriz == 60 || sHoriz == 61 || sHoriz == 62 || sHoriz == 63)
                               {
                                  continueLine = false;
                               }
                               if(p == 56 || p == 57 || p == 58 || p == 59 || 
                                p == 60 || p == 61 || p == 62 || p == 63)
                               {
-                                 break lowCheck;
+                                 break sHorizCheck;
                               }
    
-                              int posPosition = low;
+                              int posPosition = sHoriz;
                               if(pieces[posPosition] == " " || pieces[posPosition].charAt(0) == 'W')
                               {
                                  possibleMoves.add(posPosition);
@@ -317,7 +317,7 @@ public class Rook
                               }
                               if(continueLine == false)
                                  {
-                                    break lowCheck;
+                                    break sHorizCheck;
                                  }
                            }
                         }

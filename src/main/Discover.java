@@ -5,6 +5,9 @@ Author: Andy Malinsky
 */
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Pieces.Knight;
 import Pieces.Queen;
 
@@ -58,26 +61,49 @@ public class Discover
 
 
 
-   private boolean connectedToKing;
-   private String[] pinnedFrom = {"nwDiag", "neDiag", "swDiag", "seDiag",
-		   						  "lHoriz", "rHoriz", "above", "below"};
+   private boolean connectedToFriendlyKing;
+   private String pinFromDirection;
+   private Map<Boolean, Integer> directionCase = new HashMap<Boolean, Integer>();
+   private boolean pinnedFromDiag;
    
-   
-
-   public boolean isPiecePinned(int position)
+   public Map<Boolean, Integer> getDirectionPinnedFrom(int position)
    {
 	   queenSweep = new Queen(position, g, "pin");
 	   
 	   //is piece connected to friendly king by diagonal or horizontal
-	   connectedToKing = queenSweep.isKingConnected();
-	   //if connected, which way
-	   if(connectedToKing)
+	   connectedToFriendlyKing = queenSweep.isKingConnected();
+	   
+	   //if connected, is there an enemy piece pinning from opposite way pinning it
+	   if(connectedToFriendlyKing)
 	   {
+		   directionCase = queenSweep.getPinFromDirection();
+		   for(Map.Entry<Boolean, Integer> entry : directionCase.entrySet())
+		   {
+			   boolean connectedOnDiagKey = entry.getKey();
+			   int caseNum = entry.getValue();
+			   
+			   if(connectedOnDiagKey)  //if connected to king on diag
+			   {
+				   queenSweep.queenDiagCheck(caseNum);
+				   piecePinned = queenSweep.wasEnemyPinnerFound();
+				   
+			   }
+			   else  //if connected to king on horiz
+			   {
+				   queenSweep.queenHorizCheck(caseNum);
+				   piecePinned = queenSweep.wasEnemyPinnerFound();
+			   }
+			   
+			   if(!piecePinned)
+			   {
+				   directionCase.remove(connectedOnDiagKey);
+			   }
+		   }
 		   
 	   }
-	   //is there an enemy piece pinning from opposite way
 	   
-	   return piecePinned;
+	   
+	   return directionCase;
    }
    
 

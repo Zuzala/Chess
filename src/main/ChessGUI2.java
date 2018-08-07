@@ -750,7 +750,7 @@ public class ChessGUI2 extends JFrame
    private Rook rook;
    private Queen queen;
    private King king;
-   private boolean isPiecePinned;
+   private Map<Boolean, Integer> directionPinnedFrom;
    
    
    public void highlightMoves(int p, String movePString)
@@ -759,8 +759,8 @@ public class ChessGUI2 extends JFrame
       possibleMoves.clear();
       possibleMoveSquareColors.clear();  
       discover = new Discover(this);
-      isPiecePinned = discover.isPiecePinned(p); 
-      
+      directionPinnedFrom = discover.getDirectionPinnedFrom(p); 
+      System.out.println(directionPinnedFrom);
       
          if(whiteTurn)
          {
@@ -773,9 +773,9 @@ public class ChessGUI2 extends JFrame
                 break;                  
              
              case 'N': 
-             knight = new Knight(p, this, false);
-             possibleMoves = knight.getPossibleMoves();
-             possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
+            	 knight = new Knight(p, this, false);
+            	 possibleMoves = knight.getPossibleMoves();
+            	 possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
             break;
           case 'B':
                 bishop = new Bishop(p, this);
