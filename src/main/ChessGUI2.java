@@ -831,7 +831,7 @@ public class ChessGUI2 extends JFrame
                            }
                            if(pieces[pos] == " ")
                            {
-                              if(pos == passantTakePos)
+                              if(pos != 0 && pos == passantTakePos)
                               {
                                  squares[pos].setBackground(Color.red);
                               }
@@ -906,7 +906,7 @@ public class ChessGUI2 extends JFrame
                         }
                         if(pieces[pos] == " ")
                         {
-                            if(pos == passantTakePos)
+                            if(pos != 0 && pos == passantTakePos)
                               {
                                  squares[pos].setBackground(Color.red);
                               }
