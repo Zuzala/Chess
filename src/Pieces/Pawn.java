@@ -23,8 +23,10 @@ public class Pawn
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
    private boolean isPinned;
    private boolean pinCases;
+   private boolean pinnedOnDiag;
    private Integer[] caseNums = new Integer[2];
-   private Integer[] directionPinnedFromCaseNums = {1, 1};
+   private Integer[] diagPinCaseNums = {1, 1};
+   private Integer[] horizPinCaseNums = {0, 0};
    
    public Pawn(int position, String movePString, ChessGUI2 gee) 
    {
@@ -34,9 +36,18 @@ public class Pawn
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
       this.isPinned = g.getIsPinned();
+      this.pinnedOnDiag = g.getDirectionPinnedFrom();
       
       if(isPinned) {
-    	  highlightMovesP(directionPinnedFromCaseNums);
+    	  if(pinnedOnDiag)
+    	  {
+    		  highlightMovesP(diagPinCaseNums);
+    	  }
+    	  else
+    	  {
+    		  highlightMovesP(horizPinCaseNums);
+    	  }
+    	  
       }
       else
       {
@@ -81,13 +92,17 @@ public class Pawn
                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                            }
                         }
+                        
+                        if(isPinned && !pinnedOnDiag && pieces[p-8] == " ")
+                        {
+                        	int posPosition = p - 8;
+                            possibleMoves.add(posPosition);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                        }
+                        
                         if(isPinned && caseCounterP == cases[1])
                         {
                         	return;
-                        }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
                         }
                         else
                         {
@@ -166,10 +181,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -211,10 +222,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -255,10 +262,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -284,13 +287,17 @@ public class Pawn
                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                               }
                            }
+                           
+                           if(isPinned && !pinnedOnDiag && pieces[p-8] == " ")
+                           {
+                           	int posPosition = p - 8;
+                               possibleMoves.add(posPosition);
+                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                           }
+                           
                            if(isPinned && caseCounterP == cases[1])
                            {
                            	return;
-                           }
-                           else if(pinCases)
-                           {
-                         	  caseCounterP = cases[1];
                            }
                            else
                            {
@@ -367,10 +374,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -410,10 +413,6 @@ public class Pawn
                         if(isPinned && caseCounterP == cases[1])
                         {
                         	return;
-                        }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
                         }
                         else
                         {
@@ -455,10 +454,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -489,13 +484,17 @@ public class Pawn
                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                            }
                         }
+                        
+                        if(isPinned && !pinnedOnDiag && pieces[p-8] == " ")
+                        {
+                        	int posPosition = p - 8;
+                            possibleMoves.add(posPosition);
+                            possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                        }
+                        
                         if(isPinned && caseCounterP == cases[1])
                         {
                         	return;
-                        }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
                         }
                         else
                         {
@@ -575,10 +574,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -620,10 +615,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -664,10 +655,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -693,13 +680,17 @@ public class Pawn
                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                               }
                            }
+                           
+                           if(isPinned && !pinnedOnDiag && pieces[p-8] == " ")
+                           {
+                           	int posPosition = p - 8;
+                               possibleMoves.add(posPosition);
+                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                           }
+                           
                            if(isPinned && caseCounterP == cases[1])
                            {
                            	return;
-                           }
-                           else if(pinCases)
-                           {
-                         	  caseCounterP = cases[1];
                            }
                            else
                            {
@@ -777,10 +768,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -821,10 +808,6 @@ public class Pawn
                         {
                         	return;
                         }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
-                        }
                         else
                         {
                         	caseCounterP++; 
@@ -864,10 +847,6 @@ public class Pawn
                         if(isPinned && caseCounterP == cases[1])
                         {
                         	return;
-                        }
-                        else if(pinCases)
-                        {
-                      	  caseCounterP = cases[1];
                         }
                         else
                         {

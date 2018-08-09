@@ -27,6 +27,7 @@ public class Queen
    private boolean isPinned;
    private boolean directionPinnedFrom;
    private Integer[] directionPinnedFromCaseNums;
+   private boolean isSweeping;
    
    public Queen(int position, ChessGUI2 gee) 
    {
@@ -35,15 +36,16 @@ public class Queen
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
       this.isPinned = g.getIsPinned();
+      this.isSweeping = g.isSweeping();
       
       if(isPinned) {
     	  this.directionPinnedFrom = g.getDirectionPinnedFrom();
     	  this.directionPinnedFromCaseNums = g.getDirectionPinnedFromCaseNums();
-    	  if(!directionPinnedFrom)  //if pinned on diag
+    	  if(directionPinnedFrom)  //if pinned on diag
     	  {
     		  queenDiagCheck(directionPinnedFromCaseNums);
     	  }
-    	  else  //if pinned on diag
+    	  else  //if pinned on horiz
     	  {
     		  queenHorizCheck(directionPinnedFromCaseNums);
     	  }
@@ -84,6 +86,7 @@ public class Queen
    {
 	   int caseCounterQB;
 	   pinCases = false;
+	   enemyPinnerFound = false;
 	   
 		   if(cases[0] == 0 && cases[1] == 0)
 		   {
@@ -117,7 +120,7 @@ public class Queen
                          nWestDiagCheck:
                          for(int nWestDiag = p-9; nWestDiag >= 0; nWestDiag -= 9)
                          {
-                            if((pieces[nWestDiag].charAt(0) == 'W' && pieces[nWestDiag].charAt(1) != 'K') || pieces[nWestDiag].charAt(0) == 'B' || nWestDiag == 0 || nWestDiag == 8 || nWestDiag == 16 || nWestDiag == 24 || 
+                            if(pieces[nWestDiag] != " " || nWestDiag == 0 || nWestDiag == 8 || nWestDiag == 16 || nWestDiag == 24 || 
                                nWestDiag == 32 || nWestDiag == 40 || nWestDiag == 48 || nWestDiag == 1 || nWestDiag == 2 || nWestDiag == 3 || 
                                nWestDiag == 4 || nWestDiag == 5 || nWestDiag == 6)
                             {
@@ -139,14 +142,14 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
-                            		if(pinCases)
+                            		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                             	}
                             	
-                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                             	{
                             		connectedToFriendlyKing = true;
                             		caseNums[0] = caseCounterQB;
@@ -155,8 +158,12 @@ public class Queen
                             	}
                             	else
                             	{
-                            		possibleMoves.add(posPosition);
-                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
+                            		
                             	}
                                
                             } 
@@ -196,7 +203,7 @@ public class Queen
                          nEastDiagCheck:
                          for(int nEastDiag = p-7; nEastDiag >= 0; nEastDiag -= 7)
                          {
-                            if((pieces[nEastDiag].charAt(0) == 'W'  && pieces[nEastDiag].charAt(1) != 'K') || pieces[nEastDiag].charAt(0) == 'B' || nEastDiag == 7 || nEastDiag == 15 || nEastDiag == 23 || nEastDiag == 31 || 
+                            if(pieces[nEastDiag] != " " || nEastDiag == 7 || nEastDiag == 15 || nEastDiag == 23 || nEastDiag == 31 || 
                                nEastDiag == 39 || nEastDiag == 47 || nEastDiag == 55 || nEastDiag == 1 || nEastDiag == 2 || nEastDiag == 3 || 
                                nEastDiag == 4 || nEastDiag == 5 || nEastDiag == 6)
                             {
@@ -219,14 +226,14 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
-                            		if(pinCases)
+                            		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                             	}
                             	
-                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                             	{
                             		connectedToFriendlyKing = true;
                             		caseNums[0] = caseCounterQB;
@@ -235,8 +242,11 @@ public class Queen
                             	}
                             	else
                             	{
-                            		possibleMoves.add(posPosition);
-                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                                
                             }     
@@ -274,7 +284,7 @@ public class Queen
                          sWestDiagCheck:
                          for(int sWestDiag = p+7; sWestDiag >= 0; sWestDiag += 7)
                          {
-                            if((pieces[sWestDiag].charAt(0) == 'W' && pieces[sWestDiag].charAt(1) != 'K') || pieces[sWestDiag].charAt(0) == 'B' || sWestDiag == 8 || sWestDiag == 16 || sWestDiag == 24 || sWestDiag == 32 || 
+                            if(pieces[sWestDiag] != " " || sWestDiag == 8 || sWestDiag == 16 || sWestDiag == 24 || sWestDiag == 32 || 
                             sWestDiag == 40 || sWestDiag == 48 || sWestDiag == 56 || sWestDiag == 57 || sWestDiag == 58 || sWestDiag == 59 || 
                                sWestDiag == 60 || sWestDiag == 61 || sWestDiag == 62)
                             {
@@ -298,14 +308,14 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
-                            		if(pinCases)
+                            		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                             	}
                             	
-                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                             	{
                             		connectedToFriendlyKing = true;
                             		caseNums[0] = 1;
@@ -314,8 +324,11 @@ public class Queen
                             	}
                             	else
                             	{
-                            		possibleMoves.add(posPosition);
-                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                                
                             }
@@ -353,7 +366,7 @@ public class Queen
                          sEastDiagCheck:
                          for(int sEastDiag = p+9; sEastDiag >= 0; sEastDiag += 9)
                          {  
-                            if((pieces[sEastDiag].charAt(0) == 'W' && pieces[sEastDiag].charAt(1) != 'K') || pieces[sEastDiag].charAt(0) == 'B' || sEastDiag == 15 || sEastDiag == 23 || sEastDiag == 31 || sEastDiag == 39 || 
+                            if(pieces[sEastDiag] != " " || sEastDiag == 15 || sEastDiag == 23 || sEastDiag == 31 || sEastDiag == 39 || 
                             sEastDiag == 47 || sEastDiag == 55 || sEastDiag == 63 || sEastDiag == 57 || sEastDiag == 58 || sEastDiag == 59 || 
                                sEastDiag == 60 || sEastDiag == 61 || sEastDiag == 62)
                             {
@@ -376,14 +389,14 @@ public class Queen
                             		{
                             			enemyPinnerFound = true;
                             		}
-                            		if(pinCases)
+                            		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                             	}
                             	
-                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+                            	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                             	{
                             		connectedToFriendlyKing = true;
                             		caseNums[0] = 0;
@@ -392,8 +405,11 @@ public class Queen
                             	}
                             	else
                             	{
-                            		possibleMoves.add(posPosition);
-                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                             	}
                                
                             }
@@ -438,7 +454,7 @@ public class Queen
                          nWestDiagCheck:
                          for(int nWestDiag = p-9; nWestDiag >= 0; nWestDiag -= 9)
                          {
-                               if((pieces[nWestDiag].charAt(0) == 'B' && pieces[nWestDiag].charAt(1) != 'K') || pieces[nWestDiag].charAt(0) == 'W' || nWestDiag == 0 || nWestDiag == 8 || nWestDiag == 16 || nWestDiag == 24 || 
+                               if(pieces[nWestDiag] != " " || nWestDiag == 0 || nWestDiag == 8 || nWestDiag == 16 || nWestDiag == 24 || 
                                nWestDiag == 32 || nWestDiag == 40 || nWestDiag == 48 || nWestDiag == 1 || nWestDiag == 2 || nWestDiag == 3 || 
                                nWestDiag == 4 || nWestDiag == 5 || nWestDiag == 6)
                                {
@@ -460,14 +476,14 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
-                               		if(pinCases)
+                               		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                                	}
                                	
-                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                                	{
                                		connectedToFriendlyKing = true;
                                		caseNums[0] = caseCounterQB;
@@ -476,8 +492,11 @@ public class Queen
                                	}
                                	else
                                	{
-                               		possibleMoves.add(posPosition);
-                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                   
                                }
@@ -515,7 +534,7 @@ public class Queen
                          nEastDiagCheck:
                          for(int nEastDiag = p-7; nEastDiag >= 0; nEastDiag -= 7)
                          {
-                               if((pieces[nEastDiag].charAt(0) == 'B'  && pieces[nEastDiag].charAt(1) != 'K') || pieces[nEastDiag].charAt(0) == 'W' || nEastDiag == 7 || nEastDiag == 15 || nEastDiag == 23 || nEastDiag == 31 || 
+                               if(pieces[nEastDiag] != " " || nEastDiag == 7 || nEastDiag == 15 || nEastDiag == 23 || nEastDiag == 31 || 
                                nEastDiag == 39 || nEastDiag == 47 || nEastDiag == 55 || nEastDiag == 1 || nEastDiag == 2 || nEastDiag == 3 || 
                                nEastDiag == 4 || nEastDiag == 5 || nEastDiag == 6)
                                {
@@ -538,14 +557,14 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
-                               		if(pinCases)
+                               		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                                	}
                                	
-                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                                	{
                                		connectedToFriendlyKing = true;
                                		caseNums[0] = caseCounterQB;
@@ -554,8 +573,11 @@ public class Queen
                                	}
                                	else
                                	{
-                               		possibleMoves.add(posPosition);
-                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                   
                                }
@@ -593,7 +615,7 @@ public class Queen
                          sWestDiagCheck:
                          for(int sWestDiag = p+7; sWestDiag >= 0; sWestDiag += 7)
                          {
-                               if((pieces[sWestDiag].charAt(0) == 'B'  && pieces[sWestDiag].charAt(1) != 'K') || pieces[sWestDiag].charAt(0) == 'W' || sWestDiag == 8 || sWestDiag == 16 || sWestDiag == 24 || sWestDiag == 32 || 
+                               if(pieces[sWestDiag] != " " || sWestDiag == 8 || sWestDiag == 16 || sWestDiag == 24 || sWestDiag == 32 || 
                             sWestDiag == 40 || sWestDiag == 48 || sWestDiag == 56 || sWestDiag == 57 || sWestDiag == 58 || sWestDiag == 59 || 
                                sWestDiag == 60 || sWestDiag == 61 || sWestDiag == 62)
                                {
@@ -616,14 +638,14 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
-                               		if(pinCases)
+                               		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                                	}
                                	
-                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                                	{
                                		connectedToFriendlyKing = true;
                                		caseNums[0] = 1;
@@ -632,8 +654,11 @@ public class Queen
                                	}
                                	else
                                	{
-                               		possibleMoves.add(posPosition);
-                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                   
                                }
@@ -666,12 +691,12 @@ public class Queen
                    if(caseCounterQB == 3)
                    {
                       continueLine = true;
-                      if(p + 9 <= 63 && pieces[p+9].charAt(0) != 'B' || (p + 9 >= 0 && pieces[p+9] != " " && pieces[p+9].charAt(0) == 'B' && pieces[p+9].charAt(1) == 'K'))
+                      if(p + 9 <= 63 && pieces[p+9].charAt(0) != 'B' || (p + 9 <= 63 && pieces[p+9] != " " && pieces[p+9].charAt(0) == 'B' && pieces[p+9].charAt(1) == 'K'))
                       {
                          sEastDiagCheck:
                          for(int sEastDiag = p+9; sEastDiag >= 0; sEastDiag += 9)
                          {
-                               if((pieces[sEastDiag].charAt(0) == 'B' && pieces[sEastDiag].charAt(1) != 'K') || pieces[sEastDiag].charAt(0) == 'W' || sEastDiag == 15 || sEastDiag == 23 || sEastDiag == 31 || sEastDiag == 39 || 
+                               if(pieces[sEastDiag] != " " || sEastDiag == 15 || sEastDiag == 23 || sEastDiag == 31 || sEastDiag == 39 || 
                                sEastDiag == 47 || sEastDiag == 55 || sEastDiag == 63 || sEastDiag == 57 || sEastDiag == 58 || sEastDiag == 59 || 
                                sEastDiag == 60 || sEastDiag == 61 || sEastDiag == 62)
                                {
@@ -694,14 +719,14 @@ public class Queen
                                		{
                                			enemyPinnerFound = true;
                                		}
-                               		if(pinCases)
+                               		if(pinCases || !isSweeping)
                             		{
                             			possibleMoves.add(posPosition);
                                         possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                             		}
                                	}
                                	
-                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
                                	{
                                		connectedToFriendlyKing = true;
                                		caseNums[0] = 0;
@@ -710,8 +735,11 @@ public class Queen
                                	}
                                	else
                                	{
-                               		possibleMoves.add(posPosition);
-                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+                            		{
+                            			possibleMoves.add(posPosition);
+                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                            		}
                                	}
                                   
                                }
@@ -752,6 +780,7 @@ public class Queen
    {
 	   int caseCounterQR;
 	   pinCases = false;
+	   enemyPinnerFound = false;
 	   
 		   if(cases[0] == 0 && cases[1] == 0)
 		   {
@@ -782,7 +811,7 @@ public class Queen
 	                           eHorizCheck:
 	                           for(int eHoriz = p+1; eHoriz <= 63;  eHoriz++)
 	                           {  
-	                              if((pieces[eHoriz].charAt(0) == 'W' && pieces[eHoriz].charAt(1) != 'K') || pieces[eHoriz].charAt(0) == 'B' || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
+	                              if(pieces[eHoriz] != " " || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
 	                              eHoriz == 39 || eHoriz == 47 || eHoriz == 55 || eHoriz == 63)
 	                              {
 	                                 continueLine = false;
@@ -801,14 +830,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = caseCounterQR;
@@ -817,8 +846,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -857,7 +889,7 @@ public class Queen
 	                           wHorizCheck:
 	                           for(int wHoriz = p-1; wHoriz >= 0;  wHoriz--)
 	                           {  
-	                              if((pieces[wHoriz].charAt(0) == 'W'  && pieces[wHoriz].charAt(1) != 'K') || pieces[wHoriz].charAt(0) == 'B' || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
+	                              if(pieces[wHoriz] != " " || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
 	                              wHoriz == 32 || wHoriz == 40 || wHoriz == 48 || wHoriz == 56)
 	                              {
 	                                 continueLine = false;
@@ -878,14 +910,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = 0;
@@ -894,8 +926,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -933,7 +968,7 @@ public class Queen
 	                           nHorizCheck:
 	                           for(int nHoriz = p-8; nHoriz >= 0; nHoriz -= 8)
 	                           {  
-	                              if((pieces[nHoriz].charAt(0) == 'W'  && pieces[nHoriz].charAt(1) != 'K') || pieces[nHoriz].charAt(0) == 'B' || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
+	                              if(pieces[nHoriz] != " " || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
 	                              nHoriz == 4 || nHoriz == 5 || nHoriz == 6 || nHoriz == 7)
 	                              {
 	                                 continueLine = false;
@@ -954,14 +989,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = caseCounterQR;
@@ -970,8 +1005,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -1009,7 +1047,7 @@ public class Queen
 	                           sHorizCheck:
 	                           for(int sHoriz = p+8; sHoriz <= 63; sHoriz += 8)
 	                           {  
-	                              if((pieces[sHoriz].charAt(0) == 'W'  && pieces[sHoriz].charAt(1) != 'K') || pieces[sHoriz].charAt(0) == 'B' || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
+	                              if(pieces[sHoriz] != " " || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
 	                              sHoriz == 60 || sHoriz == 61 || sHoriz == 62 || sHoriz == 63)
 	                              {
 	                                 continueLine = false;
@@ -1030,14 +1068,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = 2;
@@ -1046,8 +1084,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'W' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -1094,7 +1135,7 @@ public class Queen
 	                           eHorizCheck:
 	                           for(int eHoriz = p+1; eHoriz <= 63;  eHoriz++)
 	                           {  
-	                              if((pieces[eHoriz].charAt(0) == 'B' && pieces[eHoriz].charAt(1) != 'K') || pieces[eHoriz].charAt(0) == 'W' || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
+	                              if(pieces[eHoriz] != " " || eHoriz == 7 || eHoriz == 15 || eHoriz == 23 || eHoriz == 31 || 
 	                              eHoriz == 39 || eHoriz == 47 || eHoriz == 55 || eHoriz == 63)
 	                              {
 	                                 continueLine = false;
@@ -1115,14 +1156,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = caseCounterQR;
@@ -1131,8 +1172,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -1171,7 +1215,7 @@ public class Queen
 	                           wHorizCheck:
 	                           for(int wHoriz = p-1; wHoriz >= 0;  wHoriz--)
 	                           {  
-	                              if((pieces[wHoriz].charAt(0) == 'B'  && pieces[wHoriz].charAt(1) != 'K') || pieces[wHoriz].charAt(0) == 'W' || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
+	                              if(pieces[wHoriz] != " " || wHoriz == 0 || wHoriz == 8 || wHoriz == 16 || wHoriz == 24 || 
 	                              wHoriz == 32 || wHoriz == 40 || wHoriz == 48 || wHoriz == 56)
 	                              {
 	                                 continueLine = false;
@@ -1192,14 +1236,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = 0;
@@ -1208,8 +1252,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -1247,7 +1294,7 @@ public class Queen
 	                           nHorizCheck:
 	                           for(int nHoriz = p-8; nHoriz >= 0; nHoriz -= 8)
 	                           {  
-	                              if((pieces[nHoriz].charAt(0) == 'B'  && pieces[nHoriz].charAt(1) != 'K') || pieces[nHoriz].charAt(0) == 'W' || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
+	                              if(pieces[nHoriz] != " " || nHoriz == 0 || nHoriz == 1 || nHoriz == 2 || nHoriz == 3 || 
 	                              nHoriz == 4 || nHoriz == 5 || nHoriz == 6 || nHoriz == 7)
 	                              {
 	                                 continueLine = false;
@@ -1268,14 +1315,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = caseCounterQR;
@@ -1284,8 +1331,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }
@@ -1323,7 +1373,7 @@ public class Queen
 	                           sHorizCheck:
 	                           for(int sHoriz = p+8; sHoriz <= 63; sHoriz += 8)
 	                           {  
-	                              if((pieces[sHoriz].charAt(0) == 'B'  && pieces[sHoriz].charAt(1) != 'K') || pieces[sHoriz].charAt(0) == 'W' || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
+	                              if(pieces[sHoriz] != " " || sHoriz == 56 || sHoriz == 57 || sHoriz == 58 || sHoriz == 59 || 
 	                              sHoriz == 60 || sHoriz == 61 || sHoriz == 62 || sHoriz == 63)
 	                              {
 	                                 continueLine = false;
@@ -1343,14 +1393,14 @@ public class Queen
 	                               		{
 	                               			enemyPinnerFound = true;
 	                               		}
-	                               		if(pinCases)
+	                               		if(pinCases || !isSweeping)
 	                            		{
 	                            			possibleMoves.add(posPosition);
 	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
 	                            		}
 	                               	}
 	                               	
-	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K')
+	                               	else if(!connectedToFriendlyKing && pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K' && isSweeping)
 	                               	{
 	                               		connectedToFriendlyKing = true;
 	                               		caseNums[0] = 2;
@@ -1359,8 +1409,11 @@ public class Queen
 	                               	}
 	                               	else
 	                               	{
-	                               		possibleMoves.add(posPosition);
-	                                       possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                               		if(!(pieces[posPosition] != " " &&  pieces[posPosition].charAt(0) == 'B' && pieces[posPosition].charAt(1) == 'K'))
+	                            		{
+	                            			possibleMoves.add(posPosition);
+	                                        possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+	                            		}
 	                               	}
 	                                  
 	                               }

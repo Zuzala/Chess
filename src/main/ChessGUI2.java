@@ -752,24 +752,28 @@ public class ChessGUI2 extends JFrame
    private King king;
    private boolean isPinned;
    private Map<Boolean, Integer[]> directionPinnedFrom;
+   private boolean isSweeping;
    
    public void highlightMoves(int p, String movePString)
    {
       //clears arraylists of possible moves and their square colors
       possibleMoves.clear();
       possibleMoveSquareColors.clear();  
+      isPinned = false;
       discover = new Discover(this);
+      isSweeping = true;
       directionPinnedFrom = discover.getDirectionPinnedFrom(p); 
       isPinned = !directionPinnedFrom.isEmpty();
       System.out.println(isPinned);
       System.out.println(pieces[0]);
+      isSweeping = false;
       
          if(whiteTurn)
          {
             switch(movePString.charAt(1))
             {
             case 'P':
-                if(!isPinned || (isPinned && directionPinnedFrom.containsKey(true)))
+                if(!isPinned || (isPinned && directionPinnedFrom.containsKey(false)))
                 {
                 	pawn = new Pawn(p, movePString, this);
                     possibleMoves = pawn.getPossibleMoves();
@@ -844,7 +848,7 @@ public class ChessGUI2 extends JFrame
                switch(movePString.charAt(1))
                {
                case 'P':
-                   if(!isPinned || (isPinned && directionPinnedFrom.containsKey(true)))
+                   if(!isPinned || (isPinned && directionPinnedFrom.containsKey(false)))
                    {
                    	pawn = new Pawn(p, movePString, this);
                        possibleMoves = pawn.getPossibleMoves();
@@ -1571,6 +1575,11 @@ public class ChessGUI2 extends JFrame
    public boolean getIsPinned()
    {
 	   return isPinned;
+   }
+   
+   public boolean isSweeping()
+   {
+	   return isSweeping;
    }
    
    public boolean getDirectionPinnedFrom()
