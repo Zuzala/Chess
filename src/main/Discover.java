@@ -69,7 +69,7 @@ public class Discover
    
    public Map<Boolean, Integer[]> getDirectionPinnedFrom(int position)
    {
-	   queenSweep = new Queen(position, g, "pin");
+	   queenSweep = new Queen(position, g);
 	   
 	   //is piece connected to friendly king by diagonal or horizontal
 	   connectedToFriendlyKing = queenSweep.isKingConnected();

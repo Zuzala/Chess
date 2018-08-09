@@ -21,6 +21,10 @@ public class Pawn
    
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
+   private boolean isPinned;
+   private boolean pinCases;
+   private Integer[] caseNums = new Integer[2];
+   private Integer[] directionPinnedFromCaseNums = {1, 1};
    
    public Pawn(int position, String movePString, ChessGUI2 gee) 
    {
@@ -29,14 +33,34 @@ public class Pawn
       g = gee;
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
+      this.isPinned = g.getIsPinned();
       
-      highlightMovesP();
+      if(isPinned) {
+    	  highlightMovesP(directionPinnedFromCaseNums);
+      }
+      else
+      {
+    	  caseNums[0] = 0;
+    	  caseNums[1] = 0;
+    	  highlightMovesP(caseNums);
+      }
    }
    
    
-   public void highlightMovesP()
+   public void highlightMovesP(Integer[] cases)
    { 
-      int caseCounterP = 0;
+	   int caseCounterP;
+	   pinCases = false;
+	   
+		   if(cases[0] == 0 && cases[1] == 0)
+		   {
+			   caseCounterP = 0;
+		   }
+		   else
+		   {
+			   pinCases = true;
+			   caseCounterP = cases[0];	   
+		   }
       
       if(g.getOrientation() == 'w')  //if g.getOrientation() is white starting on bottom
       {  
@@ -57,57 +81,99 @@ public class Pawn
                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        } 
                      }
                      if(caseCounterP == 1)
                      {
                         if((p >= 9 && p <= 14) || (p >= 17 && p <= 22) || (p >= 25 && p <= 30) || 
                            (p >= 33 && p <= 38) || (p >= 41 && p <= 46) || (p >= 49 && p <= 54))
                         {
-                           if(p >= 25 && p <= 30)
+                           if(!isPinned)
                            {
-                              if(g.getTurnCount() == g.passantTurn)
-                              {
-                                if((p - 1) == g.passantPawn)
-                            {
-                               int posPosition = p - 9;
-                               g.passantTakePos = posPosition;
-                               possibleMoves.add(posPosition);
-                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                            }
-                            if((p + 1) == g.passantPawn)
-                            {
-                                 int posPosition = p - 7;
-                                 g.passantTakePos = posPosition;
-                                 possibleMoves.add(posPosition);
-                                possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                              }
-                           
-                              }
-                           
+                        	   if(p >= 25 && p <= 30)
+                               {
+                                  if(g.getTurnCount() == g.passantTurn)
+                                  {
+                                    if((p - 1) == g.passantPawn)
+                                {
+                                   int posPosition = p - 9;
+                                   g.passantTakePos = posPosition;
+                                   possibleMoves.add(posPosition);
+                                   possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                }
+                                if((p + 1) == g.passantPawn)
+                                {
+                                     int posPosition = p - 7;
+                                     g.passantTakePos = posPosition;
+                                     possibleMoves.add(posPosition);
+                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                  }
+                               
+                                  }
+                               
+                               }
+                               
+                               
+                               if(pieces[p-8] == " ")
+                               {
+                                  int posPosition = p - 8;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                               }  
+                               if(pieces[p-9].charAt(0) == 'B')
+                               {
+                                  int posPosition = p - 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p-7].charAt(0) == 'B')
+                               {
+                                  int posPosition = p - 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
                            }
-                           
-                           
-                           if(pieces[p-8] == " ")
+                           else
                            {
-                              int posPosition = p - 8;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                        	   if(pieces[p-9].charAt(0) == 'B')
+                               {
+                                  int posPosition = p - 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p-7].charAt(0) == 'B')
+                               {
+                                  int posPosition = p - 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
                            }
-                           if(pieces[p-9].charAt(0) == 'B')
-                           {
-                              int posPosition = p - 9;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
-                           if(pieces[p-7].charAt(0) == 'B')
-                           {
-                              int posPosition = p - 7;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
+                        	
+                           
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                                    
                      if(caseCounterP == 2)
                      {
@@ -141,7 +207,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                      
                      if(caseCounterP == 3)
                      {
@@ -174,7 +251,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                       
                   }  
          }
@@ -196,55 +284,97 @@ public class Pawn
                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                               }
                            }
-                           caseCounterP++;
+                           if(isPinned && caseCounterP == cases[1])
+                           {
+                           	return;
+                           }
+                           else if(pinCases)
+                           {
+                         	  caseCounterP = cases[1];
+                           }
+                           else
+                           {
+                           	caseCounterP++; 
+                           }
                      }
                      if(caseCounterP == 1)
                      {
                         if((p >= 9 && p <= 14) || (p >= 17 && p <= 22) || (p >= 25 && p <= 30) || 
                            (p >= 33 && p <= 38) || (p >= 41 && p <= 46) || (p >= 49 && p <= 54))
                         {
-                           if(p >= 33 && p <= 38)
+                           if(!isPinned)
                            {
-                              if(g.getTurnCount() == g.passantTurn)
-                              {
-                                if((p - 1) == g.passantPawn)
-                            {
-                                 int posPosition = p + 7;
-                                 g.passantTakePos = posPosition;
-                               possibleMoves.add(posPosition);
-                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                            }
-                            if((p + 1) == g.passantPawn)
-                            {
-                                 int posPosition = p + 9;
-                                 g.passantTakePos = posPosition;
-                                 possibleMoves.add(posPosition);
-                                possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                              }
-                           
-                              }                                                      
+                        	   if(p >= 33 && p <= 38)
+                               {
+                                  if(g.getTurnCount() == g.passantTurn)
+                                  {
+                                    if((p - 1) == g.passantPawn)
+                                {
+                                     int posPosition = p + 7;
+                                     g.passantTakePos = posPosition;
+                                   possibleMoves.add(posPosition);
+                                   possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                }
+                                if((p + 1) == g.passantPawn)
+                                {
+                                     int posPosition = p + 9;
+                                     g.passantTakePos = posPosition;
+                                     possibleMoves.add(posPosition);
+                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                  }
+                               
+                                  }                                                      
+                               }
+                               
+                               if(pieces[p+8] == " ")
+                               {
+                                  int posPosition = p + 8;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                               }
+                               if(pieces[p+7].charAt(0) == 'W')
+                               {
+                                  int posPosition = p + 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p+9].charAt(0) == 'W')
+                               {
+                                  int posPosition = p + 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                           }
+                           else
+                           {
+                        	   if(pieces[p+7].charAt(0) == 'W')
+                               {
+                                  int posPosition = p + 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p+9].charAt(0) == 'W')
+                               {
+                                  int posPosition = p + 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               } 
                            }
                            
-                           if(pieces[p+8] == " ")
-                           {
-                              int posPosition = p + 8;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
-                           }
-                           if(pieces[p+7].charAt(0) == 'W')
-                           {
-                              int posPosition = p + 7;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
-                           if(pieces[p+9].charAt(0) == 'W')
-                           {
-                              int posPosition = p + 9;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
+                           
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                                    
                      if(caseCounterP == 2)
                      {
@@ -277,7 +407,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                      
                      if(caseCounterP == 3)
                      {
@@ -310,7 +451,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }    
                   }
 
@@ -337,57 +489,100 @@ public class Pawn
                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }
                      if(caseCounterP == 1)
                      {
                         if((p >= 9 && p <= 14) || (p >= 17 && p <= 22) || (p >= 25 && p <= 30) || 
                            (p >= 33 && p <= 38) || (p >= 41 && p <= 46) || (p >= 49 && p <= 54))
                         {
-                           if(p >= 33 && p <= 38)
+                           if(!isPinned)
                            {
-                              if(g.getTurnCount() == g.passantTurn)
-                              {
-                                if((p - 1) == g.passantPawn)
-                            {
-                               int posPosition = p + 7;
-                               g.passantTakePos = posPosition;
-                               possibleMoves.add(posPosition);
-                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                            }
-                            if((p + 1) == g.passantPawn)
-                            {
-                                 int posPosition = p + 9;
-                                 g.passantTakePos = posPosition;
-                                 possibleMoves.add(posPosition);
-                                possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                              }
-                           
-                              }
-                           
+                        	   if(p >= 33 && p <= 38)
+                               {
+                                  if(g.getTurnCount() == g.passantTurn)
+                                  {
+                                    if((p - 1) == g.passantPawn)
+                                {
+                                   int posPosition = p + 7;
+                                   g.passantTakePos = posPosition;
+                                   possibleMoves.add(posPosition);
+                                   possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                }
+                                if((p + 1) == g.passantPawn)
+                                {
+                                     int posPosition = p + 9;
+                                     g.passantTakePos = posPosition;
+                                     possibleMoves.add(posPosition);
+                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                  }
+                               
+                                  }
+                               
+                               }
+                               
+                               
+                               if(pieces[p+8] == " ")
+                               {
+                                  int posPosition = p + 8;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                               }
+                               if(pieces[p+7].charAt(0) == 'B')
+                               {
+                                  int posPosition = p + 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p+9].charAt(0) == 'B')
+                               {
+                                  int posPosition = p + 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
                            }
-                           
-                           
-                           if(pieces[p+8] == " ")
+                           else
                            {
-                              int posPosition = p + 8;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                        	   if(pieces[p+7].charAt(0) == 'B')
+                               {
+                                  int posPosition = p + 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p+9].charAt(0) == 'B')
+                               {
+                                  int posPosition = p + 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
                            }
-                           if(pieces[p+7].charAt(0) == 'B')
-                           {
-                              int posPosition = p + 7;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
-                           if(pieces[p+9].charAt(0) == 'B')
-                           {
-                              int posPosition = p + 9;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
+                        	
+                        	
+                           
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                                    
                      if(caseCounterP == 2)
                      {
@@ -421,7 +616,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                      
                      if(caseCounterP == 3)
                      {
@@ -454,7 +660,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                       
                   }  
          }
@@ -476,55 +693,98 @@ public class Pawn
                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
                               }
                            }
-                           caseCounterP++;
+                           if(isPinned && caseCounterP == cases[1])
+                           {
+                           	return;
+                           }
+                           else if(pinCases)
+                           {
+                         	  caseCounterP = cases[1];
+                           }
+                           else
+                           {
+                           	caseCounterP++; 
+                           }
                      }
                      if(caseCounterP == 1)
                      {
                         if((p >= 9 && p <= 14) || (p >= 17 && p <= 22) || (p >= 25 && p <= 30) || 
                            (p >= 33 && p <= 38) || (p >= 41 && p <= 46) || (p >= 49 && p <= 54))
                         {
-                           if(p >= 25 && p <= 30)
+                           if(!isPinned)
                            {
-                              if(g.getTurnCount() == g.passantTurn)
-                              {
-                                if((p - 1) == g.passantPawn)
-                            {
-                                 int posPosition = p - 9;
-                                 g.passantTakePos = posPosition;
-                               possibleMoves.add(posPosition);
-                               possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                            }
-                            if((p + 1) == g.passantPawn)
-                            {
-                                 int posPosition = p - 7;
-                                 g.passantTakePos = posPosition;
-                                 possibleMoves.add(posPosition);
-                                possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                              }
+                        	   if(p >= 25 && p <= 30)
+                               {
+                                  if(g.getTurnCount() == g.passantTurn)
+                                  {
+                                    if((p - 1) == g.passantPawn)
+                                {
+                                     int posPosition = p - 9;
+                                     g.passantTakePos = posPosition;
+                                   possibleMoves.add(posPosition);
+                                   possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                }
+                                if((p + 1) == g.passantPawn)
+                                {
+                                     int posPosition = p - 7;
+                                     g.passantTakePos = posPosition;
+                                     possibleMoves.add(posPosition);
+                                    possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                                  }
+                               
+                                  }                                                      
+                               }
+                               
+                               if(pieces[p-8] == " ")
+                               {
+                                  int posPosition = p - 8;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
+                               }
+                               if(pieces[p-7].charAt(0) == 'W')
+                               {
+                                  int posPosition = p - 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p-9].charAt(0) == 'W')
+                               {
+                                  int posPosition = p - 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                           }
+                           else
+                           {
+                        	   if(pieces[p-7].charAt(0) == 'W')
+                               {
+                                  int posPosition = p - 7;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                               if(pieces[p-9].charAt(0) == 'W')
+                               {
+                                  int posPosition = p - 9;
+                                  possibleMoves.add(posPosition);
+                                  possibleMoveSquareColors.add(g.getSquareColor(posPosition));
+                               }
+                           }
+                        	
+                        	
                            
-                              }                                                      
-                           }
-                           
-                           if(pieces[p-8] == " ")
-                           {
-                              int posPosition = p - 8;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition)); 
-                           }
-                           if(pieces[p-7].charAt(0) == 'W')
-                           {
-                              int posPosition = p - 7;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
-                           if(pieces[p-9].charAt(0) == 'W')
-                           {
-                              int posPosition = p - 9;
-                              possibleMoves.add(posPosition);
-                              possibleMoveSquareColors.add(g.getSquareColor(posPosition));
-                           }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                                    
                      if(caseCounterP == 2)
                      {
@@ -557,7 +817,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }                      
                      if(caseCounterP == 3)
                      {
@@ -590,7 +861,18 @@ public class Pawn
                               }
                            }
                         }
-                        caseCounterP++;
+                        if(isPinned && caseCounterP == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterP = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterP++; 
+                        }
                      }    
                   }
 

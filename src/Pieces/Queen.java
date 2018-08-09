@@ -17,7 +17,6 @@ public class Queen
    private String[] pieces;
    private int p;
    private boolean whiteTurn;
-   private String checkType;
    private boolean connectedToFriendlyKing = false;
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
@@ -25,30 +24,38 @@ public class Queen
    private Integer[] caseNums = new Integer[2];
    private Map<Boolean, Integer[]> directionCases = new HashMap<Boolean, Integer[]>();
    private boolean enemyPinnerFound;
-
+   private boolean isPinned;
+   private boolean directionPinnedFrom;
+   private Integer[] directionPinnedFromCaseNums;
    
-   public Queen(int position, ChessGUI2 gee, String checkType) 
+   public Queen(int position, ChessGUI2 gee) 
    {
       p = position;
       g = gee;
-      this.checkType = checkType;
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
+      this.isPinned = g.getIsPinned();
       
-   	  
-      switch(checkType)
-      {
-      	case "pin":
-      		highlightMovesQ();
-      		
-      		break;
-      	case "check":
-      		
-      		break;
-      	default:
-      		highlightMovesQ();
-      		break;
+      if(isPinned) {
+    	  this.directionPinnedFrom = g.getDirectionPinnedFrom();
+    	  this.directionPinnedFromCaseNums = g.getDirectionPinnedFromCaseNums();
+    	  if(!directionPinnedFrom)  //if pinned on diag
+    	  {
+    		  queenDiagCheck(directionPinnedFromCaseNums);
+    	  }
+    	  else  //if pinned on diag
+    	  {
+    		  queenHorizCheck(directionPinnedFromCaseNums);
+    	  }
       }
+      else
+      {
+    	  caseNums[0] = 0;
+    	  caseNums[1] = 0;
+    	  highlightMovesQ(caseNums);
+      }
+   	  
+      
       
       
    }
@@ -160,20 +167,17 @@ public class Queen
                          }
                       } 
                       
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
+                      	caseCounterQB++; 
                       }
                                         
                    }
@@ -235,21 +239,18 @@ public class Queen
                             }
                       }
                    } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
-                      }                       
+                      	caseCounterQB++; 
+                      }                      
                 }
                    if(caseCounterQB == 2)
                    {
@@ -310,20 +311,17 @@ public class Queen
                             }
                       }
                    } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
+                      	caseCounterQB++; 
                       }                       
                 }
                    if(caseCounterQB == 3)
@@ -385,21 +383,18 @@ public class Queen
                          }
                       }
                    } 
-                   if(pinCases)
+                   if(isPinned && caseCounterQB == cases[1])
                    {
-                	   if(caseCounterQB == cases[1])
-                   	  {
-                   		  return;
-                   	  }
-                   	  else
-                   	  {
-                   		caseCounterQB = cases[1];
-                   	  }
+                   	return;
+                   }
+                   else if(pinCases)
+                   {
+                 	  caseCounterQB = cases[1];
                    }
                    else
                    {
-                 	  caseCounterQB++;  
-                   }                       
+                   	caseCounterQB++; 
+                   }                      
                 }
        }
        
@@ -464,21 +459,18 @@ public class Queen
                                }
                          }
                       } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
-                      }                       
+                      	caseCounterQB++; 
+                      }                      
                    }
                    if(caseCounterQB == 1)
                    {
@@ -538,20 +530,17 @@ public class Queen
                                }
                          }
                       } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
+                      	caseCounterQB++; 
                       }                       
                    }
                    if(caseCounterQB == 2)
@@ -612,21 +601,18 @@ public class Queen
                                }
                          }
                       } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
-                      }                       
+                      	caseCounterQB++; 
+                      }                      
                    }
                    if(caseCounterQB == 3)
                    {
@@ -687,20 +673,17 @@ public class Queen
                                }
                          }
                       } 
-                      if(pinCases)
+                      if(isPinned && caseCounterQB == cases[1])
                       {
-                    	  if(caseCounterQB == cases[1])
-                      	  {
-                      		  return;
-                      	  }
-                      	  else
-                      	  {
-                      		caseCounterQB = cases[1];
-                      	  }
+                      	return;
+                      }
+                      else if(pinCases)
+                      {
+                    	  caseCounterQB = cases[1];
                       }
                       else
                       {
-                    	  caseCounterQB++;  
+                      	caseCounterQB++; 
                       }                      
                    }
                 }
@@ -789,21 +772,17 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                      	  if(caseCounterQR == cases[1])
-	                      	  {
-	                      		  return;
-	                      	  }
-	                      	  else
-	                      	  {
-	                      		caseCounterQR = cases[1];
-	                      	  }
-	                        	
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
 	                        }
 	                        else
 	                        {
-	                      	  caseCounterQR++;  
+	                        	caseCounterQR++; 
 	                        }
 	                     } 
 	                     
@@ -863,21 +842,18 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
-		                        }
-		                        else
-		                        {
-		                      	  caseCounterQR++;  
-		                        }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
+	                        }
+	                        else
+	                        {
+	                        	caseCounterQR++; 
+	                        }
 	                     } 
 	                     if(caseCounterQR == 2)
 	                     {
@@ -935,20 +911,17 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
 	                        }
 	                        else
 	                        {
-	                      	  caseCounterQR++;  
+	                        	caseCounterQR++; 
 	                        }
 	                     } 
 	                     if(caseCounterQR == 3)
@@ -1007,20 +980,17 @@ public class Queen
 	                              }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
 	                        }
 	                        else
 	                        {
-	                      	  caseCounterQR++;  
+	                        	caseCounterQR++; 
 	                        }
 	                     }
 	                  }
@@ -1087,20 +1057,17 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
 	                        }
 	                        else
 	                        {
-	                      	  caseCounterQR++;  
+	                        	caseCounterQR++; 
 	                        }
 	                     } 
 	                     
@@ -1160,20 +1127,17 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
 	                        }
 	                        else
 	                        {
-	                      	  caseCounterQR++;  
+	                        	caseCounterQR++; 
 	                        }
 	                     } 
 	                     if(caseCounterQR == 2)
@@ -1232,21 +1196,18 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
-		                        }
-		                        else
-		                        {
-		                      	  caseCounterQR++;  
-		                        }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
+	                        }
+	                        else
+	                        {
+	                        	caseCounterQR++; 
+	                        }
 	                     } 
 	                     if(caseCounterQR == 3)
 	                     {
@@ -1303,21 +1264,18 @@ public class Queen
 	                                 }
 	                           }
 	                        }
-	                        if(pinCases)
+	                        if(isPinned && caseCounterQR == cases[1])
 	                        {
-	                        	if(caseCounterQR == cases[1])
-		                      	  {
-		                      		  return;
-		                      	  }
-		                      	  else
-		                      	  {
-		                      		caseCounterQR = cases[1];
-		                      	  }
-		                        }
-		                        else
-		                        {
-		                      	  caseCounterQR++;  
-		                        }
+	                        	return;
+	                        }
+	                        else if(pinCases)
+	                        {
+	                      	  caseCounterQR = cases[1];
+	                        }
+	                        else
+	                        {
+	                        	caseCounterQR++; 
+	                        }
 	                     }
 	                  }
 
@@ -1327,15 +1285,13 @@ public class Queen
    
    
    
-   public void highlightMovesQ()
+   public void highlightMovesQ(Integer[] cases)
    { 
 	      possibleMoves.clear();
 	      possibleMoveSquareColors.clear();
-	  
-	      caseNums[0] = 0;
-	      caseNums[1] = 0;
-	  queenDiagCheck(caseNums);
-      queenHorizCheck(caseNums);
+	      
+	  queenDiagCheck(cases);
+      queenHorizCheck(cases);
       
 
 

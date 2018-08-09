@@ -20,6 +20,10 @@ public class Rook
    
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
+   private boolean isPinned;
+   private boolean pinCases;
+   private Integer[] caseNums = new Integer[2];
+   private Integer[] directionPinnedFromCaseNums;
    
    public Rook(int position, ChessGUI2 gee) 
    {
@@ -27,14 +31,36 @@ public class Rook
       g = gee;
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
+      this.isPinned = g.getIsPinned();
       
-      highlightMovesR();
+      if(isPinned) {
+    	  this.directionPinnedFromCaseNums = g.getDirectionPinnedFromCaseNums();
+    	  highlightMovesR(directionPinnedFromCaseNums);
+      }
+      else
+      {
+    	  caseNums[0] = 0;
+    	  caseNums[1] = 0;
+    	  highlightMovesR(caseNums);
+      }
    }
    
    
-   public void highlightMovesR()
+   public void highlightMovesR(Integer[] cases)
    { 
-      int caseCounterR = 0;
+	   int caseCounterR;
+	   pinCases = false;
+	   
+		   if(cases[0] == 0 && cases[1] == 0)
+		   {
+			   caseCounterR = 0;
+		   }
+		   else
+		   {
+			   pinCases = true;
+			   caseCounterR = cases[0];	   
+		   }
+		   
       boolean continueLine = true;
       
          if(whiteTurn)
@@ -73,7 +99,18 @@ public class Rook
                                  }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        } 
                      } 
                      
                      if(caseCounterR == 1)
@@ -108,7 +145,18 @@ public class Rook
                               }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      } 
                      if(caseCounterR == 2)
                      {
@@ -142,7 +190,18 @@ public class Rook
                               }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      } 
                      if(caseCounterR == 3)
                      {
@@ -176,7 +235,18 @@ public class Rook
                               }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      }
                   }
 
@@ -219,7 +289,18 @@ public class Rook
                                  }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      } 
                      
                      if(caseCounterR == 1)
@@ -254,7 +335,18 @@ public class Rook
                                  }
                            }
                         }
-                         caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      } 
                      if(caseCounterR == 2)
                      {
@@ -288,7 +380,18 @@ public class Rook
                                  }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      } 
                      if(caseCounterR == 3)
                      {
@@ -321,7 +424,18 @@ public class Rook
                                  }
                            }
                         }
-                        caseCounterR++;
+                        if(isPinned && caseCounterR == cases[1])
+                        {
+                        	return;
+                        }
+                        else if(pinCases)
+                        {
+                      	  caseCounterR = cases[1];
+                        }
+                        else
+                        {
+                        	caseCounterR++; 
+                        }
                      }
                   }
 

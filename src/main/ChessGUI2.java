@@ -761,16 +761,21 @@ public class ChessGUI2 extends JFrame
       discover = new Discover(this);
       directionPinnedFrom = discover.getDirectionPinnedFrom(p); 
       isPinned = !directionPinnedFrom.isEmpty();
-
+      System.out.println(isPinned);
+      System.out.println(pieces[0]);
+      
          if(whiteTurn)
          {
             switch(movePString.charAt(1))
             {
             case 'P':
-                pawn = new Pawn(p, movePString, this);
-                possibleMoves = pawn.getPossibleMoves();
-                possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
-                break;                  
+                if(!isPinned || (isPinned && directionPinnedFrom.containsKey(true)))
+                {
+                	pawn = new Pawn(p, movePString, this);
+                    possibleMoves = pawn.getPossibleMoves();
+                    possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
+                }
+                break;               
              
              case 'N': 
             	 if(!isPinned)
@@ -789,9 +794,13 @@ public class ChessGUI2 extends JFrame
               }
              break; 
           case 'R':
-                rook = new Rook(p, this); 
-                possibleMoves = rook.getPossibleMoves();
-                possibleMoveSquareColors = rook.getPossibleMoveSquareColors();
+              if(!isPinned || (isPinned && directionPinnedFrom.containsKey(false)))  //if not pinned or pinned on horiz
+              {
+            	  rook = new Rook(p, this); 
+                  possibleMoves = rook.getPossibleMoves();
+                  possibleMoveSquareColors = rook.getPossibleMoveSquareColors();
+              }
+        	  
              break;
           case 'K':  //cases for king moves              
                 king = new King(p, movePString, this); 
@@ -800,9 +809,10 @@ public class ChessGUI2 extends JFrame
              break;
              
              case 'Q':
-                queen = new Queen(p, this, " ");
-                possibleMoves = queen.getPossibleMoves();
-                possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
+            	  queen = new Queen(p, this);
+                  possibleMoves = queen.getPossibleMoves();
+                  possibleMoveSquareColors = queen.getPossibleMoveSquareColors(); 
+
              break;
                }   
             
@@ -833,41 +843,52 @@ public class ChessGUI2 extends JFrame
             {
                switch(movePString.charAt(1))
                {
-                  case 'P':
-                     pawn = new Pawn(p, movePString, this);
-                     possibleMoves = pawn.getPossibleMoves();
-                     possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
-                     break;                  
-                  
-                  case 'N': 
-                	 if(directionPinnedFrom.isEmpty())
-                 	 {
-                 		 knight = new Knight(p, this, false);
-                     	 possibleMoves = knight.getPossibleMoves();
-                     	 possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
-                 	 }
-                 break;
-               case 'B':
-                     bishop = new Bishop(p, this);
+               case 'P':
+                   if(!isPinned || (isPinned && directionPinnedFrom.containsKey(true)))
+                   {
+                   	pawn = new Pawn(p, movePString, this);
+                       possibleMoves = pawn.getPossibleMoves();
+                       possibleMoveSquareColors = pawn.getPossibleMoveSquareColors();
+                   }
+                   break;               
+                
+                case 'N': 
+               	 if(!isPinned)
+               	 {
+               		 knight = new Knight(p, this, false);
+                   	 possibleMoves = knight.getPossibleMoves();
+                   	 possibleMoveSquareColors = knight.getPossibleMoveSquareColors();
+               	 }
+               break;
+             case 'B':
+           	  if(!isPinned || (isPinned && directionPinnedFrom.containsKey(true)))  //if not pinned or pinned on diag
+                 {
+           		  bishop = new Bishop(p, this);
                      possibleMoves = bishop.getPossibleMoves();
                      possibleMoveSquareColors = bishop.getPossibleMoveSquareColors();
-                  break; 
-               case 'R':
-                     rook = new Rook(p, this); 
+                 }
+                break; 
+             case 'R':
+                 if(!isPinned || (isPinned && directionPinnedFrom.containsKey(false)))  //if not pinned or pinned on horiz
+                 {
+               	  rook = new Rook(p, this); 
                      possibleMoves = rook.getPossibleMoves();
                      possibleMoveSquareColors = rook.getPossibleMoveSquareColors();
-                  break;
-               case 'K':  //cases for king moves              
-                     king = new King(p, movePString, this); 
-                     possibleMoves = king.getPossibleMoves();
-                     possibleMoveSquareColors = king.getPossibleMoveSquareColors();
-                  break;
-                  
-                  case 'Q':
-                     queen = new Queen(p, this, " ");
+                 }
+           	  
+                break;
+             case 'K':  //cases for king moves              
+                   king = new King(p, movePString, this); 
+                   possibleMoves = king.getPossibleMoves();
+                   possibleMoveSquareColors = king.getPossibleMoveSquareColors();
+                break;
+                
+                case 'Q':
+               	  queen = new Queen(p, this);
                      possibleMoves = queen.getPossibleMoves();
-                     possibleMoveSquareColors = queen.getPossibleMoveSquareColors();
-                  break;
+                     possibleMoveSquareColors = queen.getPossibleMoveSquareColors(); 
+
+                break;
                 }   
             }
             
@@ -1550,6 +1571,18 @@ public class ChessGUI2 extends JFrame
    public boolean getIsPinned()
    {
 	   return isPinned;
+   }
+   
+   public boolean getDirectionPinnedFrom()
+   {
+	   boolean pinnedOnDiag = false;
+	   
+	   for(Map.Entry<Boolean, Integer[]> entry : directionPinnedFrom.entrySet())
+	   {
+		   pinnedOnDiag = entry.getKey();
+	   }
+	   
+	   return pinnedOnDiag;
    }
    
    public Integer[] getDirectionPinnedFromCaseNums()
