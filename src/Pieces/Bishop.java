@@ -110,7 +110,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -157,7 +164,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -205,7 +219,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -253,7 +274,14 @@ public class Bishop
                      }
                      else if(pinCases)
                      {
-                   	  caseCounterB = cases[1];
+                    	 if(caseCounterB == cases[1])
+                       	{
+                       		return;
+                       	}
+                       	else
+                       	{
+                       		caseCounterB = cases[1];
+                       	}
                      }
                      else
                      {
@@ -305,7 +333,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -352,7 +387,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -399,7 +441,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {
@@ -447,7 +496,14 @@ public class Bishop
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterB = cases[1];
+                        	if(caseCounterB == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterB = cases[1];
+                          	}
                         }
                         else
                         {

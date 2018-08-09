@@ -173,7 +173,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                      	{
+                      		return;
+                      	}
+                      	else
+                      	{
+                      		caseCounterQB = cases[1];
+                      	}
                       }
                       else
                       {
@@ -245,7 +252,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -317,7 +331,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -389,7 +410,14 @@ public class Queen
                    }
                    else if(pinCases)
                    {
-                 	  caseCounterQB = cases[1];
+                	   if(caseCounterQB == cases[1])
+                     	{
+                     		return;
+                     	}
+                     	else
+                     	{
+                     		caseCounterQB = cases[1];
+                     	}
                    }
                    else
                    {
@@ -465,7 +493,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -536,7 +571,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -607,7 +649,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -679,7 +728,14 @@ public class Queen
                       }
                       else if(pinCases)
                       {
-                    	  caseCounterQB = cases[1];
+                    	  if(caseCounterQB == cases[1])
+                        	{
+                        		return;
+                        	}
+                        	else
+                        	{
+                        		caseCounterQB = cases[1];
+                        	}
                       }
                       else
                       {
@@ -778,7 +834,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -848,7 +911,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -917,7 +987,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -986,7 +1063,15 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                        	{
+	                        		return;
+	                        	}
+	                        	else
+	                        	{
+	                        		caseCounterQR = cases[1];
+	                        	}
+	                      	  
 	                        }
 	                        else
 	                        {
@@ -1063,7 +1148,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -1133,7 +1225,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -1202,7 +1301,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {
@@ -1270,7 +1376,14 @@ public class Queen
 	                        }
 	                        else if(pinCases)
 	                        {
-	                      	  caseCounterQR = cases[1];
+	                        	if(caseCounterQR == cases[1])
+	                          	{
+	                          		return;
+	                          	}
+	                          	else
+	                          	{
+	                          		caseCounterQR = cases[1];
+	                          	}
 	                        }
 	                        else
 	                        {

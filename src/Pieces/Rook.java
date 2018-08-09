@@ -105,7 +105,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -151,7 +158,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -196,7 +210,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -241,7 +262,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -295,7 +323,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -341,7 +376,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -386,7 +428,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
@@ -430,7 +479,14 @@ public class Rook
                         }
                         else if(pinCases)
                         {
-                      	  caseCounterR = cases[1];
+                        	if(caseCounterR == cases[1])
+                          	{
+                          		return;
+                          	}
+                          	else
+                          	{
+                          		caseCounterR = cases[1];
+                          	}
                         }
                         else
                         {
