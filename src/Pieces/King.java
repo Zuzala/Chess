@@ -538,8 +538,18 @@ public class King
 
    }
    
+   /*check surrounding squares of king for illegal moves into check
+   King king = new King(whiteKingPosition, g);
+   king.getPossibleMoves();
+   //for(int move : surroundingSquares)
+   {
+		if(kingInCheck)
+		{
+			surroundingSquares.remove(move);
+		}
+   }*/
    
-   
+   private Queen moveIntoCheckSweep;
    
    public ArrayList<Integer> getPossibleMoves()
    {

@@ -20,6 +20,7 @@ public class Knight
    private boolean whiteTurn;
    private boolean checkingForCheck;
    private boolean kingInCheck;
+   private int checkedFromSquare;
    
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
@@ -36,6 +37,24 @@ public class Knight
       highlightMovesN();
    }
    
+   public boolean kingInCheck()
+   {
+	   return kingInCheck;
+   }
+   
+   public int getCheckedFromSquare()
+   {
+	   return checkedFromSquare;
+   }
+   
+   /*
+    * 
+    * if(checkingForCheck)
+    * {
+    * 	
+    * }
+    * */
+    
    
    public void highlightMovesN()
    { 

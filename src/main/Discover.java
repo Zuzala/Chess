@@ -21,15 +21,13 @@ public class Discover
    
    private Queen queenSweep;
    private Knight knightSweep;
-   private final boolean checkingForCheck = true;
+   private Integer[] baseCases = {0, 0};
    
    private int whiteKingPosition;
    private int blackKingPosition;   
    private boolean whiteTurn;
    
-   private boolean whiteKingInCheck = false;
-   private boolean blackKingInCheck = false;
-   private boolean ownKingDiscovered = false;
+
    private boolean piecePinned = false;
    
    public Discover(ChessGUI2 gee)
@@ -45,17 +43,37 @@ public class Discover
   
 
 
+   private ArrayList<Boolean> whiteKingInCheck = new ArrayList<Boolean>();
+   private ArrayList<Boolean> blackKingInCheck = new ArrayList<Boolean>();
+   private Map<Boolean, Integer> directionCheckCases = new HashMap<Boolean, Integer>();
+   private ArrayList<Integer> blockCheckSquares = new ArrayList<Integer>();
 
-   //checks if king is checked based on whose turn it is
-   public void isKingInCheck()
-   {
-
+   
+ public ArrayList<Boolean> isKingInCheck()
+ {  
+	 whiteKingInCheck.clear();
+	 blackKingInCheck.clear();
+	 
+	   if(whiteTurn)  //check if black king in check
+	   {
+		   knightSweep = new Knight(whiteKingPosition, g, true);
+		   whiteKingInCheck.add(knightSweep.kingInCheck());
+		   queenSweep = new Queen(whiteKingPosition, g);
+		   whiteKingInCheck.add(queenSweep.kingInCheck());
+		   
+		   return whiteKingInCheck;
+	   }
 	   
+	   else  //check if white king in check
+	   {
+		   knightSweep = new Knight(blackKingPosition, g, true);
+		   whiteKingInCheck.add(knightSweep.kingInCheck());
+		   queenSweep = new Queen(blackKingPosition, g);
+		   whiteKingInCheck.add(queenSweep.kingInCheck());
 	   
-	   
-	   
-	   
-   }
+		   return blackKingInCheck;
+	   }
+ }
 
 
 
@@ -63,9 +81,7 @@ public class Discover
 
 
    private boolean connectedToFriendlyKing;
-   private String pinFromDirection;
-   private Map<Boolean, Integer[]> directionCase = new HashMap<Boolean, Integer[]>();
-   private boolean pinnedFromDiag;
+   private Map<Boolean, Integer[]> directionPinCase = new HashMap<Boolean, Integer[]>();
    
    public Map<Boolean, Integer[]> getDirectionPinnedFrom(int position)
    {
@@ -77,8 +93,8 @@ public class Discover
 	   //if connected, is there an enemy piece pinning from opposite way pinning it
 	   if(connectedToFriendlyKing)
 	   {
-		   directionCase = queenSweep.getPinFromDirection();
-		   for(Map.Entry<Boolean, Integer[]> entry : directionCase.entrySet())
+		   directionPinCase = queenSweep.getPinFromDirection();
+		   for(Map.Entry<Boolean, Integer[]> entry : directionPinCase.entrySet())
 		   {
 			   boolean connectedOnDiagKey = entry.getKey();
 			   Integer[] caseNum = entry.getValue();
@@ -98,18 +114,18 @@ public class Discover
 			   
 			   if(!piecePinned)
 			   {
-				   directionCase.remove(connectedOnDiagKey);
+				   directionPinCase.remove(connectedOnDiagKey);
 			   }
 		   }
 		   
 	   }
 	   
 	   
-	   return directionCase;
+	   return directionPinCase;
    }
    
 
-
+   
 
 
 

@@ -752,7 +752,9 @@ public class ChessGUI2 extends JFrame
    private King king;
    private boolean isPinned;
    private Map<Boolean, Integer[]> directionPinnedFrom;
-   private boolean isSweeping;
+   private Map<Boolean, Integer> directionCheckedFrom;
+   private boolean pinSweeping;
+   private boolean checkSweeping;
    
    public void highlightMoves(int p, String movePString)
    {
@@ -761,12 +763,10 @@ public class ChessGUI2 extends JFrame
       possibleMoveSquareColors.clear();  
       isPinned = false;
       discover = new Discover(this);
-      isSweeping = true;
+      pinSweeping = true;
       directionPinnedFrom = discover.getDirectionPinnedFrom(p); 
       isPinned = !directionPinnedFrom.isEmpty();
-      System.out.println(isPinned);
-      System.out.println(pieces[0]);
-      isSweeping = false;
+      pinSweeping = false;
       
          if(whiteTurn)
          {
@@ -923,10 +923,6 @@ public class ChessGUI2 extends JFrame
    private int positionDesired;
    private boolean tryingToTakePiece;
    private ArrayList<Boolean> legalMoves = new ArrayList<Boolean>();
-   private boolean ownKingDiscovered;
-   private boolean enemyKingDiscovered;
-
-   
 
    
    //checks if attempted move is legal and returns boolean
@@ -959,30 +955,6 @@ public class ChessGUI2 extends JFrame
          if(legalMoves.contains(true))
          {
         	 
-
-        //   private boolean whiteKingInCheck;
-        //   private boolean blackKingInCheck;
-        //   private int whiteCheckedTurn;
-        //   private int blackCheckedTurn;
-        //   private Color whiteKingSquareColor;
-        //   private Color blackKingSquareColor;
-        //   private int whiteKingPosition;
-        //   private int blackKingPosition;
-//            
-//            discover.isKingInCheck();
-            
-//            if(blackKingInCheck)
-//            {
-//               blackCheckedTurn = turnCounter + 1;
-//               blackKingSquareColor = squares[blackKingPosition].getBackground();
-//               squares[blackKingPosition].setBackground(Color.red); 
-//            }
-//            ownKingDiscovered = discover.isOwnKingDiscovered();
-//            
-//            if(ownKingDiscovered)
-//            {
-//               legal = false;
-//            }
         	 legal = true;
         	 
         	 if(legal && tryingToTakePiece)
@@ -997,8 +969,6 @@ public class ChessGUI2 extends JFrame
       
       return legal;
    }
-
-
 
 
 
@@ -1577,9 +1547,14 @@ public class ChessGUI2 extends JFrame
 	   return isPinned;
    }
    
-   public boolean isSweeping()
+   public boolean pinSweeping()
    {
-	   return isSweeping;
+	   return pinSweeping;
+   }
+   
+   public boolean checkSweeping()
+   {
+	   return checkSweeping;
    }
    
    public boolean getDirectionPinnedFrom()
@@ -1606,4 +1581,27 @@ public class ChessGUI2 extends JFrame
 	   return caseNums;
    }
    
+   public boolean getDirectionCheckedFrom()
+   {
+	   boolean checkedOnDiag = false;
+	   
+	   for(Map.Entry<Boolean, Integer> entry : directionCheckedFrom.entrySet())
+	   {
+		   checkedOnDiag = entry.getKey();
+	   }
+	   
+	   return checkedOnDiag;
+   }
+   
+   public int getDirectionCheckedFromCaseNum()
+   {
+	   int caseNums = 0;
+	   
+	   for(Map.Entry<Boolean, Integer> entry : directionCheckedFrom.entrySet())
+	   {
+		   caseNums = entry.getValue();
+	   }
+	   
+	   return caseNums;
+   }
 }
