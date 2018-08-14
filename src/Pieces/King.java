@@ -32,6 +32,7 @@ public class King
       this.pieces = g.getPieces();
       
       highlightMovesK();
+      moveIntoCheckSweep();
    }
    
    
@@ -538,18 +539,35 @@ public class King
 
    }
    
-   /*check surrounding squares of king for illegal moves into check
-   King king = new King(whiteKingPosition, g);
-   king.getPossibleMoves();
-   //for(int move : surroundingSquares)
-   {
-		if(kingInCheck)
-		{
-			surroundingSquares.remove(move);
-		}
-   }*/
+   //check surrounding squares of king for illegal moves into check
+
    
    private Queen moveIntoCheckSweep;
+   private Knight moveIntoKnightCheckSweep;
+
+   public void moveIntoCheckSweep()
+   {
+	   Iterator<Integer> i = possibleMoves.iterator();
+	   Iterator<Color> c = possibleMoveSquareColors.iterator();
+	   while (i.hasNext() && c.hasNext()) 
+	   {
+	      int position = i.next();
+	      Color positionSquareColor = c.next();
+	      
+	      moveIntoCheckSweep = new Queen(position, g);
+	      moveIntoKnightCheckSweep = new Knight(position, g, true);
+	      
+	      if(moveIntoCheckSweep.kingInCheck() || moveIntoKnightCheckSweep.kingInCheck())
+	      {
+	    	  i.remove();
+	    	  c.remove();
+	      }
+	      
+	      
+	   }
+	   
+   }
+   
    
    public ArrayList<Integer> getPossibleMoves()
    {
