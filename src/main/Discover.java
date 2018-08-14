@@ -42,41 +42,85 @@ public class Discover
 
   
 
-
-   private ArrayList<Boolean> whiteKingInCheck = new ArrayList<Boolean>();
-   private ArrayList<Boolean> blackKingInCheck = new ArrayList<Boolean>();
-   private Map<Boolean, Integer> directionCheckCases = new HashMap<Boolean, Integer>();
-   private ArrayList<Integer> blockCheckSquares = new ArrayList<Integer>();
-
+   private Map<Character, Map<String, Integer>> kingInCheckCases = new HashMap<Character, Map<String, Integer>>();
    
- public ArrayList<Boolean> isKingInCheck()
+   //string either "knight diag horiz" and integer for knight is position while caseNum for diag and horiz
+   private Map<String, Integer> directionCheckCases = new HashMap<String, Integer>();
+   private ArrayList<Integer> blockCheckSquares = new ArrayList<Integer>();
+   private ArrayList<String> checkParameters = new ArrayList<String>();
+
+ public Map<Character, Map<String, Integer>> getKingInCheckCases()
  {  
-	 whiteKingInCheck.clear();
-	 blackKingInCheck.clear();
+
+	 kingInCheckCases.clear();
+	 directionCheckCases.clear();
+	 checkParameters.clear();
 	 
-	   if(whiteTurn)  //check if black king in check
+	   if(whiteTurn)  //check if white king in check
 	   {
 		   knightSweep = new Knight(whiteKingPosition, g, true);
-		   whiteKingInCheck.add(knightSweep.kingInCheck());
 		   queenSweep = new Queen(whiteKingPosition, g);
-		   whiteKingInCheck.add(queenSweep.kingInCheck());
 		   
-		   return whiteKingInCheck;
+		   if(knightSweep.kingInCheck())
+		   {	
+			   directionCheckCases.put("knight", knightSweep.getCheckedFromSquare());
+		   }
+		   
+		   if(queenSweep.kingInCheck())
+		   {
+			   directionCheckCases.putAll(queenSweep.getCheckFromDirection());
+		   }
+		   
+		   if(!directionCheckCases.isEmpty())
+		   {
+			   kingInCheckCases.put('w', directionCheckCases);
+			   setCheckParameters(directionCheckCases);
+		   }
+		   
+		   
+		   
 	   }
 	   
-	   else  //check if white king in check
+	   else  //check if black king in check
 	   {
 		   knightSweep = new Knight(blackKingPosition, g, true);
-		   whiteKingInCheck.add(knightSweep.kingInCheck());
 		   queenSweep = new Queen(blackKingPosition, g);
-		   whiteKingInCheck.add(queenSweep.kingInCheck());
-	   
-		   return blackKingInCheck;
+		   
+		   if(knightSweep.kingInCheck())
+		   {	
+			   directionCheckCases.put("knight", knightSweep.getCheckedFromSquare());
+		   }
+		   
+		   if(queenSweep.kingInCheck())
+		   {
+			   directionCheckCases.putAll(queenSweep.getCheckFromDirection());
+		   }
+		   
+		   if(!directionCheckCases.isEmpty())
+		   {
+			   kingInCheckCases.put('b', directionCheckCases);
+			   setCheckParameters(directionCheckCases);
+		   }
 	   }
+	   
+	   return kingInCheckCases;
  }
 
 
+ public void setCheckParameters(Map<String, Integer> cases)
+ {
+	 for(Map.Entry<String, Integer> entry : cases.entrySet())
+	   {
+		 checkParameters.add(entry.getKey());
+	   }
+	 
+ }
+ 
+ public ArrayList<String> getCheckParameters()
+ {   
 
+	 return checkParameters;
+ }
 
 
 

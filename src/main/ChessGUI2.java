@@ -175,14 +175,7 @@ public class ChessGUI2 extends JFrame
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
    
    private Discover discover;
-   private boolean whiteKingInCheck;
-   private boolean blackKingInCheck;
-   private int whiteCheckedTurn;
-   private int blackCheckedTurn;
-   private Color whiteKingSquareColor;
-   private Color blackKingSquareColor;
-   private int whiteKingPosition;
-   private int blackKingPosition;
+
    
    private class ButtonListener implements ActionListener
    {
@@ -212,13 +205,6 @@ public class ChessGUI2 extends JFrame
                whiteTurnChecks:
                if(whiteTurn)
                {
-                  blackKingInCheck = false;
-                  
-                  if(whiteKingInCheck)
-                  {
-                     
-                     break whiteTurnChecks;   
-                  }
                  
                   if((pieceHighLighted == true) && (position == highlightedPiecePosition))
                   {
@@ -1410,7 +1396,21 @@ public class ChessGUI2 extends JFrame
    
    
    private int turnCounter = 0;
-	
+   private Map<Character, Map<String, Integer>> kingInCheckCases = new HashMap<Character, Map<String, Integer>>();
+   private int whiteCheckedTurn;
+   private int blackCheckedTurn;
+   private Color whiteKingSquareColor;
+   private Color blackKingSquareColor;
+   private int whiteKingPosition;
+   private int blackKingPosition;
+   private char checkedTurnChar;
+   
+   private boolean checkedByKnight;
+   private boolean checkedOnDiag;
+   private boolean checkedOnHoriz;
+   private boolean absoluteCheck;
+   
+   
    public void updateTurn()
 	{
 		turnCounter++;
@@ -1482,6 +1482,56 @@ public class ChessGUI2 extends JFrame
             squares[x].setIcon(null);
          }
       }
+      
+      
+      //check for checks
+      discover = new Discover(this);
+      checkSweeping = true;
+     kingInCheckCases = discover.getKingInCheckCases();
+     checkSweeping = false; 
+     
+     for(Map.Entry<Character, Map<String, Integer>> entry : kingInCheckCases.entrySet())
+	   {
+    	 
+    	 if(discover.getCheckParameters().size() > 1)
+    	 {
+    		 absoluteCheck = true;
+    		 System.out.println("absolute check");
+    	 }
+
+    	 else
+    	 {
+    		 switch(discover.getCheckParameters().get(0))
+    		 {
+    		 case "knight":
+    			 
+    			 System.out.println("Checked by knight");
+    			 System.out.println(entry.getKey());
+    			 System.out.println(entry.getValue());
+    			 
+    			 break;
+    		 case "diag":
+    			 
+    			 System.out.println("Checked on diag");
+    			 System.out.println(entry.getKey());
+    			 System.out.println(entry.getValue());
+    			 break;
+    		 case "horiz":
+    			 System.out.println("Checked on horiz");
+    			 System.out.println(entry.getKey());
+    			 System.out.println(entry.getValue());
+    			 
+    			 break;
+    		 }
+    		 
+    	 }
+    	 
+		   
+		   
+		   checkedTurnChar = entry.getKey();
+		   
+	   }
+      
 	}
    
    //sets the turn

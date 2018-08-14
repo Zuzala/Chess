@@ -31,7 +31,7 @@ public class Queen
    private boolean pinSweeping;
    
    private boolean checkCases;
-   private Map<Boolean, Integer> directionCheckCases = new HashMap<Boolean, Integer>();
+   private Map<String, Integer> directionCheckCases = new HashMap<String, Integer>();
    private boolean kingInCheck;
    private boolean checkedOnDiag;
    private int directionCheckedFromCaseNum;
@@ -115,7 +115,7 @@ public class Queen
 	   return enemyPinnerFound;
    }
    
-   public Map<Boolean, Integer> getCheckFromDirection()
+   public Map<String, Integer> getCheckFromDirection()
    {
 	   return directionCheckCases;
    }
@@ -183,7 +183,7 @@ public class Queen
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
                             		kingInCheck = true;
-                            		directionCheckCases.put(true, caseCounterQB);
+                            		directionCheckCases.put("diag", caseCounterQB);
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -273,7 +273,7 @@ public class Queen
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
                             		kingInCheck = true;
-                            		directionCheckCases.put(true, caseCounterQB);
+                            		directionCheckCases.put("diag", caseCounterQB);
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -361,7 +361,7 @@ public class Queen
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
                             		kingInCheck = true;
-                            		directionCheckCases.put(true, caseCounterQB);
+                            		directionCheckCases.put("diag", caseCounterQB);
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -448,7 +448,7 @@ public class Queen
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
                             		kingInCheck = true;
-                            		directionCheckCases.put(true, caseCounterQB);
+                            		directionCheckCases.put("diag", caseCounterQB);
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -541,7 +541,7 @@ public class Queen
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                	{
                                		kingInCheck = true;
-                               		directionCheckCases.put(true, caseCounterQB);
+                               		directionCheckCases.put("diag", caseCounterQB);
                                	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -628,7 +628,7 @@ public class Queen
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
                                   		kingInCheck = true;
-                                  		directionCheckCases.put(true, caseCounterQB);
+                                  		directionCheckCases.put("diag", caseCounterQB);
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -715,7 +715,7 @@ public class Queen
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
                                   		kingInCheck = true;
-                                  		directionCheckCases.put(true, caseCounterQB);
+                                  		directionCheckCases.put("diag", caseCounterQB);
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -802,7 +802,7 @@ public class Queen
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
                                   		kingInCheck = true;
-                                  		directionCheckCases.put(true, caseCounterQB);
+                                  		directionCheckCases.put("diag", caseCounterQB);
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -919,7 +919,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1005,7 +1005,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1090,7 +1090,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1175,7 +1175,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1269,7 +1269,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1355,7 +1355,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1440,7 +1440,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1524,7 +1524,7 @@ public class Queen
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
 	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put(false, caseCounterQR);
+	                                 		directionCheckCases.put("horiz", caseCounterQR);
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
