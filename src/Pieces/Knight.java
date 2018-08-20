@@ -24,7 +24,7 @@ public class Knight
    
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
-   
+   private boolean movedIntoCheck = false;
    
    public Knight(int position, ChessGUI2 gee, boolean checkingForCheck) 
    {
@@ -40,6 +40,11 @@ public class Knight
    public boolean kingInCheck()
    {
 	   return kingInCheck;
+   }
+   
+   public boolean movedIntoCheck()
+   {
+	   return movedIntoCheck;
    }
    
    public int getCheckedFromSquare()

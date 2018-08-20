@@ -19,6 +19,7 @@ public class King
    private int p;
    private String movePString;
    private boolean whiteTurn;
+   private boolean kingInCheck;
    
    private ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
    private ArrayList<Color> possibleMoveSquareColors = new ArrayList<Color>();
@@ -30,6 +31,7 @@ public class King
       g = gee;
       this.whiteTurn = g.getTurn();
       this.pieces = g.getPieces();
+      this.kingInCheck = g.kingInCheck();
       
       highlightMovesK();
       moveIntoCheckSweep();
@@ -549,6 +551,8 @@ public class King
    {
 	   Iterator<Integer> i = possibleMoves.iterator();
 	   Iterator<Color> c = possibleMoveSquareColors.iterator();
+	   g.setMoveIntoCheckSweeping(true);
+	   
 	   while (i.hasNext() && c.hasNext()) 
 	   {
 	      int position = i.next();
@@ -557,7 +561,7 @@ public class King
 	      moveIntoCheckSweep = new Queen(position, g);
 	      moveIntoKnightCheckSweep = new Knight(position, g, true);
 	      
-	      if(moveIntoCheckSweep.kingInCheck() || moveIntoKnightCheckSweep.kingInCheck())
+	      if(moveIntoCheckSweep.movedIntoCheck() || moveIntoKnightCheckSweep.movedIntoCheck())
 	      {
 	    	  i.remove();
 	    	  c.remove();
@@ -565,6 +569,8 @@ public class King
 	      
 	      
 	   }
+	   
+	   g.setMoveIntoCheckSweeping(false);
 	   
    }
    

@@ -42,19 +42,20 @@ public class Discover
 
   
 
-   private Map<Character, Map<String, Integer>> kingInCheckCases = new HashMap<Character, Map<String, Integer>>();
-   
+   private Map<ArrayList<Integer>, Map<String, Integer>> kingInCheckCases = new HashMap<ArrayList<Integer>, Map<String, Integer>>();
+   private ArrayList<Integer> checkingPieces = new ArrayList<Integer>();
    //string either "knight diag horiz" and integer for knight is position while caseNum for diag and horiz
    private Map<String, Integer> directionCheckCases = new HashMap<String, Integer>();
    private ArrayList<Integer> blockCheckSquares = new ArrayList<Integer>();
    private ArrayList<String> checkParameters = new ArrayList<String>();
 
- public Map<Character, Map<String, Integer>> getKingInCheckCases()
+ public Map<ArrayList<Integer>, Map<String, Integer>> getKingInCheckCases()
  {  
 
 	 kingInCheckCases.clear();
 	 directionCheckCases.clear();
 	 checkParameters.clear();
+	 checkingPieces.clear();
 	 
 	   if(whiteTurn)  //check if white king in check
 	   {
@@ -64,16 +65,18 @@ public class Discover
 		   if(knightSweep.kingInCheck())
 		   {	
 			   directionCheckCases.put("knight", knightSweep.getCheckedFromSquare());
+			   checkingPieces.add(knightSweep.getCheckedFromSquare());
 		   }
 		   
 		   if(queenSweep.kingInCheck())
 		   {
 			   directionCheckCases.putAll(queenSweep.getCheckFromDirection());
+			   checkingPieces.addAll(queenSweep.getCheckingPiece());
 		   }
 		   
 		   if(!directionCheckCases.isEmpty())
 		   {
-			   kingInCheckCases.put('w', directionCheckCases);
+			   kingInCheckCases.put(checkingPieces, directionCheckCases);
 			   setCheckParameters(directionCheckCases);
 		   }
 		   
@@ -98,7 +101,7 @@ public class Discover
 		   
 		   if(!directionCheckCases.isEmpty())
 		   {
-			   kingInCheckCases.put('b', directionCheckCases);
+			   kingInCheckCases.put(checkingPieces, directionCheckCases);
 			   setCheckParameters(directionCheckCases);
 		   }
 	   }
@@ -170,7 +173,27 @@ public class Discover
    
 
    
-
+   private Map<Boolean, Integer> directionCheckedFrom = new HashMap<Boolean, Integer>();
+   
+   public Map<Boolean, Integer> getDirectionCheckedFrom()
+   {
+	   
+		   for(Map.Entry<String, Integer> entry : directionCheckCases.entrySet())
+		   {
+			   switch(entry.getKey())
+			   {
+			   case"diag":
+				   directionCheckedFrom.put(true, entry.getValue());
+				   break;
+			   case "horiz":
+				   directionCheckedFrom.put(false, entry.getValue());
+				   break;
+			   }
+		   }
+	   
+		   
+	   return directionCheckedFrom;
+   }
 
 
 

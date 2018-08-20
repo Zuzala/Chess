@@ -36,6 +36,10 @@ public class Queen
    private boolean checkedOnDiag;
    private int directionCheckedFromCaseNum;
    private boolean checkSweeping;
+   private ArrayList<Integer> checkingPiece = new ArrayList<Integer>();
+   private boolean movedIntoCheck = false;
+   private boolean moveIntoCheckSweeping;
+   
    
    public Queen(int position, ChessGUI2 gee) 
    {
@@ -46,6 +50,9 @@ public class Queen
       this.isPinned = g.getIsPinned();
       this.pinSweeping = g.pinSweeping();
       this.checkSweeping = g.checkSweeping();
+      checkingPiece.clear();
+      this.kingInCheck = g.kingInCheck();
+      this.moveIntoCheckSweeping = g.getMoveIntoCheckSweeping();
       
       if(!checkSweeping)
       {
@@ -70,7 +77,7 @@ public class Queen
       }
       else
       {
-    	  if(kingInCheck)
+    	  if(kingInCheck && !moveIntoCheckSweeping)
     	  {
     		  this.checkedOnDiag = g.getDirectionCheckedFrom();
         	  this.directionCheckedFromCaseNum = g.getDirectionCheckedFromCaseNum();
@@ -125,6 +132,15 @@ public class Queen
 	   return kingInCheck;
    }
    
+   public boolean movedIntoCheck()
+   {
+	   return movedIntoCheck;
+   }
+   
+   public ArrayList<Integer> getCheckingPiece()
+   {
+	   return checkingPiece;
+   }
    
    public void queenDiagCheck(Integer[] cases)
    {
@@ -182,8 +198,17 @@ public class Queen
                             {
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
-                            		kingInCheck = true;
-                            		directionCheckCases.put("diag", caseCounterQB);
+                            		if(moveIntoCheckSweeping)
+                            		{
+                            			movedIntoCheck = true;
+                            		}
+                            		else
+                            		{
+                                		kingInCheck = true;
+                                		directionCheckCases.put("diag", caseCounterQB);
+                                		checkingPiece.add(posPosition);
+                            		}
+
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -272,8 +297,16 @@ public class Queen
                             {
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
-                            		kingInCheck = true;
-                            		directionCheckCases.put("diag", caseCounterQB);
+                            		if(moveIntoCheckSweeping)
+                            		{
+                            			movedIntoCheck = true;
+                            		}
+                            		else
+                            		{
+                                		kingInCheck = true;
+                                		directionCheckCases.put("diag", caseCounterQB);
+                                		checkingPiece.add(posPosition);
+                            		}
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -360,8 +393,16 @@ public class Queen
                             {
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
-                            		kingInCheck = true;
-                            		directionCheckCases.put("diag", caseCounterQB);
+                            		if(moveIntoCheckSweeping)
+                            		{
+                            			movedIntoCheck = true;
+                            		}
+                            		else
+                            		{
+                                		kingInCheck = true;
+                                		directionCheckCases.put("diag", caseCounterQB);
+                                		checkingPiece.add(posPosition);
+                            		}
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -447,8 +488,16 @@ public class Queen
                             {
                             	if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                             	{
-                            		kingInCheck = true;
-                            		directionCheckCases.put("diag", caseCounterQB);
+                            		if(moveIntoCheckSweeping)
+                            		{
+                            			movedIntoCheck = true;
+                            		}
+                            		else
+                            		{
+                                		kingInCheck = true;
+                                		directionCheckCases.put("diag", caseCounterQB);
+                                		checkingPiece.add(posPosition);
+                            		}
                             	}
                             	
                             	if(connectedToFriendlyKing)
@@ -540,8 +589,16 @@ public class Queen
                                {
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                	{
-                               		kingInCheck = true;
-                               		directionCheckCases.put("diag", caseCounterQB);
+                            		   if(moveIntoCheckSweeping)
+                               		{
+                               			movedIntoCheck = true;
+                               		}
+                               		else
+                               		{
+                                   		kingInCheck = true;
+                                   		directionCheckCases.put("diag", caseCounterQB);
+                                   		checkingPiece.add(posPosition);
+                               		}
                                	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -627,8 +684,16 @@ public class Queen
                                {
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
-                                  		kingInCheck = true;
-                                  		directionCheckCases.put("diag", caseCounterQB);
+                            		   if(moveIntoCheckSweeping)
+                               		{
+                               			movedIntoCheck = true;
+                               		}
+                               		else
+                               		{
+                                   		kingInCheck = true;
+                                   		directionCheckCases.put("diag", caseCounterQB);
+                                   		checkingPiece.add(posPosition);
+                               		}
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -714,8 +779,16 @@ public class Queen
                                {
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
-                                  		kingInCheck = true;
-                                  		directionCheckCases.put("diag", caseCounterQB);
+                            		   if(moveIntoCheckSweeping)
+                               		{
+                               			movedIntoCheck = true;
+                               		}
+                               		else
+                               		{
+                                   		kingInCheck = true;
+                                   		directionCheckCases.put("diag", caseCounterQB);
+                                   		checkingPiece.add(posPosition);
+                               		}
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -801,8 +874,16 @@ public class Queen
                                {
                             	   if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'B' || pieces[posPosition].charAt(1) == 'Q'))
                                   	{
-                                  		kingInCheck = true;
-                                  		directionCheckCases.put("diag", caseCounterQB);
+                            		   if(moveIntoCheckSweeping)
+                               		{
+                               			movedIntoCheck = true;
+                               		}
+                               		else
+                               		{
+                                   		kingInCheck = true;
+                                   		directionCheckCases.put("diag", caseCounterQB);
+                                   		checkingPiece.add(posPosition);
+                               		}
                                   	}
                             	   
                             	   if(connectedToFriendlyKing)
@@ -918,8 +999,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+	                              		{
+	                              			movedIntoCheck = true;
+	                              		}
+	                              		else
+	                              		{
+	                                  		kingInCheck = true;
+	                                  		directionCheckCases.put("horiz", caseCounterQR);
+	                                  		checkingPiece.add(posPosition);
+	                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1004,8 +1093,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1089,8 +1186,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1174,8 +1279,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'B' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1268,8 +1381,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1354,8 +1475,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1439,8 +1568,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)
@@ -1523,8 +1660,16 @@ public class Queen
 	                               {
 	                            	  if(checkSweeping && pieces[posPosition] != " " && pieces[posPosition].charAt(0) == 'W' && (pieces[posPosition].charAt(1) == 'R' || pieces[posPosition].charAt(1) == 'Q'))
 	                                 	{
-	                                 		kingInCheck = true;
-	                                 		directionCheckCases.put("horiz", caseCounterQR);
+	                            		  if(moveIntoCheckSweeping)
+		                              		{
+		                              			movedIntoCheck = true;
+		                              		}
+		                              		else
+		                              		{
+		                                  		kingInCheck = true;
+		                                  		directionCheckCases.put("horiz", caseCounterQR);
+		                                  		checkingPiece.add(posPosition);
+		                              		}
 	                                 	}
 	                            	  
 	                            	  if(connectedToFriendlyKing)

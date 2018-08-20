@@ -738,7 +738,7 @@ public class ChessGUI2 extends JFrame
    private King king;
    private boolean isPinned;
    private Map<Boolean, Integer[]> directionPinnedFrom;
-   private Map<Boolean, Integer> directionCheckedFrom;
+
    private boolean pinSweeping;
    private boolean checkSweeping;
    
@@ -759,7 +759,7 @@ public class ChessGUI2 extends JFrame
             switch(movePString.charAt(1))
             {
             case 'P':
-                if(!absoluteCheck && (!isPinned || (isPinned && directionPinnedFrom.containsKey(false))))
+                if(!absoluteCheck)
                 {
                 	pawn = new Pawn(p, movePString, this);
                     possibleMoves = pawn.getPossibleMoves();
@@ -812,6 +812,12 @@ public class ChessGUI2 extends JFrame
              break;
                }   
             
+            if(movePString.charAt(1) != 'K')
+            {
+            	filterPossibleMoves();
+            }
+            
+            
                for(int m = 0; m < possibleMoves.size(); m++)
                    {
                         int pos = possibleMoves.get(m);
@@ -840,7 +846,7 @@ public class ChessGUI2 extends JFrame
                switch(movePString.charAt(1))
                {
                case 'P':
-                   if(!absoluteCheck && (!isPinned || (isPinned && directionPinnedFrom.containsKey(false))))
+                   if(!absoluteCheck)
                    {
                    	pawn = new Pawn(p, movePString, this);
                        possibleMoves = pawn.getPossibleMoves();
@@ -892,6 +898,11 @@ public class ChessGUI2 extends JFrame
 
                 break;
                 }   
+            }
+            
+            if(movePString.charAt(1) != 'K')
+            {
+            	filterPossibleMoves();
             }
             
             for(int m = 0; m < possibleMoves.size(); m++)
@@ -1408,20 +1419,21 @@ public class ChessGUI2 extends JFrame
    
    
    private int turnCounter = 0;
-   private Map<Character, Map<String, Integer>> kingInCheckCases = new HashMap<Character, Map<String, Integer>>();
-   private ArrayList<Integer> possibleMovesDuringCheck = new ArrayList<Integer>();
+   private Map<ArrayList<Integer>, Map<String, Integer>> kingInCheckCases = new HashMap<ArrayList<Integer>, Map<String, Integer>>();
+   private Integer blockCase;
+   private Integer[] blockCases;
+   private ArrayList<Integer> possibleBlockMovesDuringCheck = new ArrayList<Integer>();
    private int checkedTurn;
    private int checkingPiece;
    private int whiteKingPosition;
    private int blackKingPosition;
    private char checkedTurnChar;
-//   passantPawn = position;
-//   passantTurn = turnCounter + 1;
-   private boolean checkedByKnight;
-   private boolean checkedOnDiag;
-   private boolean checkedOnHoriz;
    private boolean absoluteCheck;
+   private boolean kingInCheck;
    
+   private Queen duringCheckBlockMoves;
+   private Knight duringCheckKnightBlockkMoves;
+   private Map<Boolean, Integer> directionCheckedFrom;
    
    public void updateTurn()
 	{
@@ -1501,18 +1513,25 @@ public class ChessGUI2 extends JFrame
       checkSweeping = true;
       kingInCheckCases = discover.getKingInCheckCases();
       checkSweeping = false; 
-//      private ArrayList<Integer> possibleMovesDuringCheck = new ArrayList<Integer>();
-//      private int checkingPiece;
-//      private int whiteKingPosition;
-//      private int blackKingPosition;
+      if(!kingInCheckCases.isEmpty())
+      {
+    	  kingInCheck = true;
+      }
+      else
+      {
+    	  kingInCheck = false;
+      }
+      
+      
 
-//      private boolean checkedByKnight;
-//      private boolean checkedOnDiag;
-//      private boolean checkedOnHoriz;
-//      private boolean absoluteCheck;
-//      
-     for(Map.Entry<Character, Map<String, Integer>> entry : kingInCheckCases.entrySet())
+      possibleBlockMovesDuringCheck.clear();
+
+     
+     for(Map.Entry<ArrayList<Integer>, Map<String, Integer>> entry : kingInCheckCases.entrySet())
 	   {
+    	 
+    	 directionCheckedFrom = discover.getDirectionCheckedFrom();
+    	 
     	 
     	 if(discover.getCheckParameters().size() > 1)
     	 {
@@ -1522,6 +1541,7 @@ public class ChessGUI2 extends JFrame
 
     	 else
     	 {
+    		 checkSweeping = true;
     		 switch(discover.getCheckParameters().get(0))
     		 {
     		 case "knight":
@@ -1530,26 +1550,42 @@ public class ChessGUI2 extends JFrame
     			 System.out.println(entry.getKey());
     			 System.out.println(entry.getValue());
     			 
+    			 
     			 break;
     		 case "diag":
     			 
     			 System.out.println("Checked on diag");
     			 System.out.println(entry.getKey());
-    			 System.out.println(entry.getValue());
+    			 System.out.println(entry.getValue().values());
+    			 
+    			 if(whiteTurn)
+    			 duringCheckBlockMoves = new Queen(whiteKingPosition, this);
+    			 else
+    				 duringCheckBlockMoves = new Queen(blackKingPosition, this);
+    			 
+    			 possibleBlockMovesDuringCheck.addAll(duringCheckBlockMoves.getPossibleMoves());
+    			 System.out.println(possibleBlockMovesDuringCheck);
+    			 
     			 break;
     		 case "horiz":
     			 System.out.println("Checked on horiz");
     			 System.out.println(entry.getKey());
     			 System.out.println(entry.getValue());
+    			 if(whiteTurn)
+        			 duringCheckBlockMoves = new Queen(whiteKingPosition, this);
+        			 else
+        				 duringCheckBlockMoves = new Queen(blackKingPosition, this);
     			 
     			 break;
     		 }
     		 
+    		 checkSweeping = false;
     	 }
     	 
-		   
+		  
+    	 
 		   checkedTurn = turnCounter;
-		   checkedTurnChar = entry.getKey();
+		   
 		   
 	   }
       
@@ -1623,6 +1659,11 @@ public class ChessGUI2 extends JFrame
 	   return pinSweeping;
    }
    
+   public boolean kingInCheck()
+   {
+	   return kingInCheck;
+   }
+   
    public boolean checkSweeping()
    {
 	   return checkSweeping;
@@ -1675,4 +1716,38 @@ public class ChessGUI2 extends JFrame
 	   
 	   return caseNums;
    }
+   
+   private boolean moveIntoCheckSweeping;
+   
+   public void setMoveIntoCheckSweeping(boolean sweeping)
+   {
+	   moveIntoCheckSweeping = sweeping;
+   }
+   
+   public boolean getMoveIntoCheckSweeping()
+   {
+	   return moveIntoCheckSweeping;
+   }
+   
+   public void filterPossibleMoves()
+   {
+	   Iterator<Integer> i = possibleMoves.iterator();
+	   Iterator<Color> c = possibleMoveSquareColors.iterator();
+	   
+	   while (i.hasNext() && c.hasNext()) 
+	   {
+	      int position = i.next();
+	      Color positionSquareColor = c.next();
+	      
+	      if(!(possibleBlockMovesDuringCheck.isEmpty()) && !(possibleBlockMovesDuringCheck.contains(position)))
+	      {
+	    	  i.remove();
+	    	  c.remove();
+	      }
+	      
+	      
+	   }
+
+   }
+   
 }
