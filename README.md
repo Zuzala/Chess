@@ -5,5 +5,5 @@ This Java project is a work in progress.
 Features include...
 
 #### Player vs. Player (Local)
-  - The GUI consitsts of 4 main components.\
+  - The GUI consitsts of 4 main components.
   <img src="img-readme/gui.JPG" width="400">
