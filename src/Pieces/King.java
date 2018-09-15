@@ -50,7 +50,7 @@ public class King
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 60 && g.getOrientation() == 'w')
+                        if(!kingInCheck && p == 60 && g.getOrientation() == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -70,7 +70,7 @@ public class King
                               }
                            }
                         }
-                        if(p == 3 && g.getOrientation() == 'b')
+                        if(!kingInCheck && p == 3 && g.getOrientation() == 'b')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -297,7 +297,7 @@ public class King
                   {
                      if(caseCounterK == 0)
                      {
-                        if(p == 4 && g.getOrientation() == 'w')
+                        if(!kingInCheck && p == 4 && g.getOrientation() == 'w')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -317,7 +317,7 @@ public class King
                               }
                            }
                         }
-                        if(p == 59 && g.getOrientation() == 'b')
+                        if(!kingInCheck && p == 59 && g.getOrientation() == 'b')
                         {
                            for(int c = 0; c < movePString.length(); c++)
                            {
@@ -572,8 +572,68 @@ public class King
 	   
 	   g.setMoveIntoCheckSweeping(false);
 	   
+	   castleThroughCheckSweep();
+	   
+	   
+	   
+	   
    }
    
+   public void castleThroughCheckSweep()
+   {
+	   Iterator<Integer> i = possibleMoves.iterator();
+	   Iterator<Color> c = possibleMoveSquareColors.iterator();
+	   while (i.hasNext() && c.hasNext()) 
+	   {
+	      int position = i.next();
+	      Color positionSquareColor = c.next();
+	      boolean castleThroughCheck = false;    
+	      
+	      switch(position)
+	      {
+	      case 1:
+	    	  if(!possibleMoves.contains(2))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 5:
+	    	  if(!possibleMoves.contains(4))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 58:
+	    	  if(!possibleMoves.contains(59))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 62:
+	    	  if(!possibleMoves.contains(61))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 2:
+	    	  if(!possibleMoves.contains(3))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 6:
+	    	  if(!possibleMoves.contains(5))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 57: 
+	    	  if(!possibleMoves.contains(58))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      case 61:
+	    	  if(!possibleMoves.contains(60))
+	    		  castleThroughCheck = true;
+	    	  break;
+	      }
+	      
+	      if(castleThroughCheck)
+	      {
+	    	  i.remove();
+	    	  c.remove();
+	      }
+	      
+	      
+	   }
+   }
    
    public ArrayList<Integer> getPossibleMoves()
    {
