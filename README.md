@@ -6,4 +6,4 @@ Features include...
 
 #### Player vs. Player (Local)
 The GUI consitsts of 4 main components.
-![Chess GUI](img-readme/gui.jpg)
+![Chess GUI](img-readme/gui.JPG)
