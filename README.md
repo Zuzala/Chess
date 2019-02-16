@@ -1,15 +1,25 @@
 # Chess
-This Java project was my final project for CIS111B - Computer Science II: Object-Oriented Programming.
-It is still a work in progress, but I plan on using it as a foundation for a similar web application.
+This Java project was my final project for course CIS111B - Computer Science II: Object-Oriented Programming taken in Spring 2017.
+There are still some featues missing such as pawn promotions, recognizing checkmate, horizontal pinning, discover check, and a move notation system.
 
-## Features
-Features include the chess board, a move notation sheet, a display of taken pieces, and a button to flip the board. 
+## How to Run
+1. Clone this repository.
+2. Within the cloned folder, navigate to the file located at src/main/ChessMain2.java.
+3. Open ChessMain2.java and run.
 
-#### Player vs. Player (Local)
+## Features and Functions
+Current features include:
+-chess board
+-display of taken pieces
+-button to flip the board
+
+Current working game functions:
+-en passant
+-castling
+-piece selection allowance based on move legality
+-piece capture
+-pinned piece: diagonally and vertically
+
+## Player vs. Player (Local)
   - The GUI consitsts of 4 main components.
   <img src="img-readme/gui.JPG" width="400">
-
-#### Future Developments
-- Create a web application using Javascript
-- Implement Player vs. Player (Remote)
-- Implement Player vs. Computer using machine learning algorithms
