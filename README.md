@@ -8,16 +8,16 @@ There are still some featues missing such as pawn promotions, recognizing checkm
 3. Open ChessMain2.java and run.
 
 ## Features and Functions
-Current features include:
--chess board
--display of taken pieces
+Current features include:<br/>
+-chess board<br/>
+-display of taken pieces<br/>
 -button to flip the board
 
-Current working game functions:
--en passant
--castling
--piece selection allowance based on move legality
--piece capture
+Current working game functions:<br/>
+-en passant<br/>
+-castling<br/>
+-piece selection allowance based on move legality<br/>
+-piece capture<br/>
 -pinned piece: diagonally and vertically
 
 ## Player vs. Player (Local)
