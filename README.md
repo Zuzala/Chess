@@ -17,6 +17,8 @@ Current working game functions:<br/>
 -en passant<br/>
 -castling<br/>
 -piece selection allowance based on move legality<br/>
+-piece movement<br/>
+-legal moves highlighted<br/>
 -piece capture<br/>
 -pinned piece: diagonally and vertically
 
